@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Zones du serveur TWD, carte "Old Yicesewa Valley" (graine TWD_Georgia, 8192, générée le 17/11/2026).
+<!-- Zones du serveur TWD, carte "North Kezunahu County" (graine TWD_Georgia_10k, 10240, générée le 17/11/2026).
      - Hors de toute zone : PvE (defaultPvp="false").
      - pvp="true"  : zone PvP. Les dégâts entre joueurs ne passent que si l'attaquant ET la victime y sont.
        Chaque zone PvP reçoit aussi un véhicule abandonné (TWD_Vehicles).
@@ -7,11 +7,11 @@
      - Cercle : x, z, radius. Rectangle : x1, z1, x2, z2. (x = Est/Ouest, z = Nord/Sud, en mètres)
      Ajustement en jeu : commande console "twdzones" (voir LISTE.md). -->
 <zones defaultPvp="false">
-	<!-- La grande ville du sud-ouest : 11 gratte-ciel, hôpital, base militaire.
-	     Rectangle = partie construite (tuiles de ville), sauf la rangée sud, pour laisser la prison (-3633, -2721) hors zone. -->
-	<zone name="Atlanta" pvp="true" x1="-3800" z1="-2600" x2="-2600" z2="-1550" />
-	<!-- La ville du centre de la carte (2 gratte-ciel) -->
-	<zone name="Terminus" pvp="true" x="-749" z="340" radius="200" />
-	<!-- La ville du nord-ouest (4 gratte-ciel, hôpital) -->
-	<zone name="Woodbury" pvp="true" x="-2560" z="1980" radius="250" />
+	<!-- La très grande ville du centre-ouest (~785 bâtiments, 29 tours, tribunal, hôpitaux, base militaire au sud).
+	     Rectangle = 96 % de ses bâtiments (mesuré dans prefabs.xml), plus une marge. Les prisons sont à plus de 2 km. -->
+	<zone name="Atlanta" pvp="true" x1="-4100" z1="-850" x2="-1900" z2="1150" />
+	<!-- Petite ville avec son église, ~2,8 km au nord d'Atlanta (90 % des bâtiments à moins de 360 m) -->
+	<zone name="Woodbury" pvp="true" x="-2134" z="2745" radius="400" />
+	<!-- Petite ville industrielle (usine, armurerie), presque au centre de la carte (90 % des bâtiments à moins de 390 m) -->
+	<zone name="Terminus" pvp="true" x="26" z="-1456" radius="420" />
 </zones>
