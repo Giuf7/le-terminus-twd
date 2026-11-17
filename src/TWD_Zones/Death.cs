@@ -57,6 +57,7 @@ namespace TWDZones
                 lastDeath[p.entityId] = Time.time;
                 Entity killer = _secondaryEntityId >= 0 ? w.GetEntity(_secondaryEntityId) : null;
                 JournalDeath.OnPlayerDied(p, killer);   // d'abord le journal : il lit l'état du joueur avant tout changement
+                Factions.OnPlayerDied(p);               // mort définitive : le survivant quitte sa faction
                 PlayerTurns.OnPlayerDied(p, killer);
             }
             catch (Exception e) { Log.Warning("[TWD_Mort] message de mort : " + e.Message); }

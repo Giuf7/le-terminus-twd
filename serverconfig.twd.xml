@@ -100,7 +100,7 @@
 	<property name="TwitchServerPermission"			value="90"/>				<!-- Required permission level to use twitch integration on the server -->
 	<property name="TwitchBloodMoonAllowed"			value="false"/>				<!-- If the server allows twitch actions during a blood moon. This could cause server lag with extra zombies being spawned during blood moon. -->
 
-	<property name="SandboxCode"					value="AACJADJATDEMBBADBGDBHDAQBBJABKABLABNCBPABOACDABWACAACBACQACRACSACTACXADEDDIDDJADLAEYAEZAEOAFKAEPAEQAEUAEVAFLKFOK"/>	<!-- Currently set to the default difficulty of Adventurer. This code can be changed by starting the new game screen, clicking on the sandbox options button, adjusting the options, and then using the copy code button to paste it here. Code example: AAAJABJACJADJARFBNC -->
+	<property name="SandboxCode"					value="AACJADJATDEMBAPABADBGDBHDAQBBJABKABLABNCBPABOACDABWACAACBACQACRACSACTACXADEDDIDDJADLAEYAEZAEOAFKAEPAEQAEUAEVAFLKFOK"/>	<!-- Currently set to the default difficulty of Adventurer. This code can be changed by starting the new game screen, clicking on the sandbox options button, adjusting the options, and then using the copy code button to paste it here. Code example: AAAJABJACJADJARFBNC -->
 
 	<!-- There are several game settings that you cannot change when starting a new game. -->
 	<!-- You can use console commands to change at least some of them in-game. -->

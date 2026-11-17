@@ -159,4 +159,12 @@
 			</effect_group>
 		</buff>
 	</append>
+
+	<!-- « Le duc vous a laissé une note » : rappel du jeu de base pour lire la note du Duc (histoire des marchands).
+	     Notre équipement de départ ne contient pas cette note, et il n'y a pas de marchands : message supprimé (17/11/2026). -->
+	<remove xpath="/buffs/buff[@name='buffStatusCheck01']//triggered_effect[@action='PinToolbeltMessage' and @message_key='buffDukeNoteToolTip']"/>
+	<remove xpath="/buffs/buff[@name='buffDukeNote']//triggered_effect[@action='PinToolbeltMessage']"/>
+	<append xpath="/buffs/buff[@name='buffDukeNote']/effect_group">
+		<triggered_effect trigger="onSelfBuffStart" action="RemoveBuff" buff="buffDukeNote"/>
+	</append>
 </configs>

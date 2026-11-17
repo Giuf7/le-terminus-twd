@@ -134,26 +134,18 @@ namespace TWDVehicles
             return ids;
         }
 
-        // Nombre de véhicules à moteur de la faction du joueur (lui, ses alliés, son groupe)
+        // Nombre de véhicules à moteur de la faction du joueur (tous ses membres, connectés ou non ; lui seul s'il n'en a pas).
+        // Avant le 17/11/2026 : groupe du moment + alliés (contournable en quittant le groupe).
         public static int FactionCount(EntityPlayer p, int excludeId)
         {
-            PersistentPlayerData me = Data(p.entityId);
-            if (me == null) return 0;
-            var party = new HashSet<string>();
-            if (p.Party != null)
-                foreach (EntityPlayer m in p.Party.MemberList)
-                {
-                    PersistentPlayerData d = m == null ? null : Data(m.entityId);
-                    if (d != null) party.Add(d.PrimaryId.CombinedString);
-                }
+            HashSet<string> members = TWDZones.Factions.MemberKeys(p);
+            if (members.Count == 0) return 0;
             HashSet<int> existing = ExistingIds();
             int n = 0;
             foreach (VehicleRecord r in Records.Values)
             {
                 if (r.Id == excludeId || !r.Motor || r.Owner == "" || !existing.Contains(r.Id)) continue;
-                if (r.Owner == me.PrimaryId.CombinedString || party.Contains(r.Owner)) { n++; continue; }
-                PlatformUserIdentifierAbs other = PlatformUserIdentifierAbs.FromCombinedString(r.Owner, false);
-                if (other != null && me.IsAlly(other)) n++;
+                if (members.Contains(r.Owner)) n++;
             }
             return n;
         }

@@ -18,7 +18,10 @@ namespace TWDZones
             ModEvents.GameUpdate.RegisterHandler(Notifier.OnGameUpdate);
             ModEvents.PlayerDisconnected.RegisterHandler(LogoutWatch.OnDisconnect);
             ModEvents.GameUpdate.RegisterHandler(JournalWatch.OnGameUpdate);
-            Debug.Log("[TWD_Zones] Initialisé : PvP joueur contre joueur limité aux zones PvP.");
+            ModEvents.PlayerSpawnedInWorld.RegisterHandler(Factions.OnPlayerSpawned);
+            ModEvents.GameUpdate.RegisterHandler(Factions.OnGameUpdate);
+            ModEvents.ChatMessage.RegisterHandler(FactionChat.OnChat);
+            Debug.Log("[TWD_Zones] Initialisé : PvP joueur contre joueur limité aux zones PvP, factions.");
         }
     }
 
@@ -35,6 +38,11 @@ namespace TWDZones
             {
                 LogoutWatch.RecordDanger(target, source);   // coup de rôdeur : danger pour la détection des déconnexions
                 return true;
+            }
+            if (Factions.SameFaction(attacker, target))
+            {
+                Notifier.WarnAttacker(attackerId, "[ffd040]C'est un membre de votre faction.[-]");
+                return false;
             }
             if (ZoneStore.IsPvp(attacker.position) && ZoneStore.IsPvp(target.position))
             {
@@ -133,10 +141,15 @@ namespace TWDZones
 
         public static void WarnAttacker(int attackerId)
         {
+            WarnAttacker(attackerId, "[ffd040]Zone sûre : vous ne pouvez pas blesser un autre survivant ici.[-]");
+        }
+
+        public static void WarnAttacker(int attackerId, string msg)
+        {
             float last;
             if (lastWarn.TryGetValue(attackerId, out last) && Time.time - last < 5f) return;
             lastWarn[attackerId] = Time.time;
-            Send(attackerId, "[ffd040]Zone sûre : vous ne pouvez pas blesser un autre survivant ici.[-]", "ui_denied");
+            Send(attackerId, msg, "ui_denied");
         }
 
         // Passe par les commandes officielles du serveur, qui transmettent le buff au jeu du joueur

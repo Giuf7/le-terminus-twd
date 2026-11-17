@@ -38,6 +38,7 @@ IntroChallengesEnabled=0    # les points de départ sont donnés dès le début
 
 # --- Mort
 DeathPenalty=3              # mort définitive
+NewbieCoat=0                # pas de « protection débutant » (inutile avec la mort définitive)
 DropOnDeath=1               # tout est lâché sur le cadavre
 
 # --- Loot
