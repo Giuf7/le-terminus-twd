@@ -1,0 +1,10 @@
+<configs>
+	<!-- Fiches d'affichage des 4 pièces (panneau des statistiques), sur le modèle de la tenue de fermier du jeu.
+	     Sans elles, les "DisplayType" armorMaton* n'existent pas. -->
+	<append xpath="/ui_display_info/item_display">
+		<item_display_info display_type="armorMatonHelmet" display_group="groupAttire" extends="armorMediumNew"/>
+		<item_display_info display_type="armorMatonChest" display_group="groupAttire" extends="armorMediumNew"/>
+		<item_display_info display_type="armorMatonArms" display_group="groupAttire" extends="armorMediumNew"/>
+		<item_display_info display_type="armorMatonBoots" display_group="groupAttire" extends="armorMediumNew"/>
+	</append>
+</configs>

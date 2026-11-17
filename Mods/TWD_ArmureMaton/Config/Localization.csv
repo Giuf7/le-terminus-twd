@@ -1,0 +1,9 @@
+Key,File,Type,english,french
+armorMatonHelmet,items,Item,Maton Helmet,Casque Maton
+armorMatonHelmetDesc,items,Item,"Maton Helmet: riot gear armor piece.","Casque Maton : pièce d'armure anti-émeute."
+armorMatonChest,items,Item,Maton Vest,Gilet Maton
+armorMatonChestDesc,items,Item,"Maton Vest: riot gear armor piece.","Gilet Maton : pièce d'armure anti-émeute."
+armorMatonArms,items,Item,Maton Arm Guards,Protège-bras Maton
+armorMatonArmsDesc,items,Item,"Maton Arm Guards: riot gear armor piece.","Protège-bras Maton : pièce d'armure anti-émeute."
+armorMatonBoots,items,Item,Maton Greaves,Jambières Maton
+armorMatonBootsDesc,items,Item,"Maton Greaves: riot gear armor piece.","Jambières Maton : pièce d'armure anti-émeute."

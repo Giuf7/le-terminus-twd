@@ -7,7 +7,7 @@ param([switch]$Vanilla, [string[]]$Exclude = @(), [string]$GameDir = "E:\game")
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
-$ours = @("TWD_Core", "TWD_Metiers", "TWD_UI", "TWD_Vehicles", "TWD_Zones", "WalkerSim2")
+$ours = @("TWD_Core", "TWD_Metiers", "TWD_UI", "TWD_Vehicles", "TWD_Zones", "TWD_ArmureMaton", "WalkerSim2")
 
 Get-Process 7DaysToDieServer -ErrorAction SilentlyContinue | Stop-Process -Force
 Start-Sleep 3

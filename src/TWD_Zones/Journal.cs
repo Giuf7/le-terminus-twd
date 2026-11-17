@@ -38,6 +38,7 @@ namespace TWDZones
         }
 
         public static string Pos(Entity e) { return "(" + (int)e.position.x + ", " + (int)e.position.z + ")"; }
+        public static string Pos(Vector3 p) { return "(" + (int)p.x + ", " + (int)p.z + ")"; }
     }
 
     // Dernier coup reçu par chaque joueur (sert à expliquer une infection ou une mort)

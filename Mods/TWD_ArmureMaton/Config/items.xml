@@ -1,0 +1,94 @@
+<configs>
+	<!-- Armure Maton : 4 pieces (casque, torse, bras, jambieres). Non testee en jeu. -->
+	<append xpath="/items">
+		<item name="armorMatonHelmet">
+			<property name="Extends" value="armorMediumMaster" param1="CustomIcon"/>
+			<property name="DescriptionKey" value="armorMatonHelmetDesc"/>
+			<property name="DisplayType" value="armorMatonHelmet"/>
+			<property name="Tags" value="head,armor,armorHead,mediumArmor,mediumArmorPenalty,mediumArmorDeg,armorMediumSkill"/>
+			<property name="EquipSlot" value="Head"/>
+			<property name="CreativeMode" value="Player"/>
+			<property name="CustomIcon" value="armorFarmerHelmet"/>
+			<effect_group name="MatonHelmet">
+				<passive_effect name="ModSlots" operation="base_set" value="2,2,3,3,4,5" tier="1,2,3,4,5,6"/>
+				<passive_effect name="PhysicalDamageResist" operation="base_add" value="13,17.3" tier="1,6"/>
+				<passive_effect name="ElementalDamageResist" operation="base_add" value="13,17.3" tier="1,6" tags="heat,electrical"/>
+				<passive_effect name="DegradationMax" operation="base_set" value="250,500" tier="1,6"/>
+				<passive_effect name="DegradationPerUse" operation="base_set" value="1" tags="mediumArmorDeg"/>
+				<passive_effect name="Mobility" operation="perc_add" value="-.05"/>
+			</effect_group>
+			<property class="SDCS">
+				<property name="Prefab" value="#@modfolder:Resources/armure_maton.unity3d?Assets/ArmureMaton/ArmureCasque.prefab"/>
+				<property name="TransformName" value="Armure_Casque"/>
+				<property name="Excludes" value=""/>
+				<property name="HairMaskType" value="Hat"/>
+			</property>
+		</item>
+		<item name="armorMatonChest">
+			<property name="Extends" value="armorMediumMaster" param1="CustomIcon"/>
+			<property name="DescriptionKey" value="armorMatonChestDesc"/>
+			<property name="DisplayType" value="armorMatonChest"/>
+			<property name="Tags" value="upperbody,chest,armor,armorChest,mediumArmor,mediumArmorPenalty,mediumArmorDeg,armorMediumSkill"/>
+			<property name="EquipSlot" value="Chest"/>
+			<property name="CreativeMode" value="Player"/>
+			<property name="CustomIcon" value="armorFarmerOutfit"/>
+			<effect_group name="MatonChest">
+				<passive_effect name="ModSlots" operation="base_set" value="2,2,3,3,4,5" tier="1,2,3,4,5,6"/>
+				<passive_effect name="PhysicalDamageResist" operation="base_add" value="13,17.3" tier="1,6"/>
+				<passive_effect name="ElementalDamageResist" operation="base_add" value="13,17.3" tier="1,6" tags="heat,electrical"/>
+				<passive_effect name="DegradationMax" operation="base_set" value="250,500" tier="1,6"/>
+				<passive_effect name="DegradationPerUse" operation="base_set" value="1" tags="mediumArmorDeg"/>
+				<passive_effect name="Mobility" operation="perc_add" value="-.05"/>
+			</effect_group>
+			<property class="SDCS">
+				<property name="Prefab" value="#@modfolder:Resources/armure_maton.unity3d?Assets/ArmureMaton/ArmureTorse.prefab"/>
+				<property name="TransformName" value="Armure_Torse"/>
+				<property name="Excludes" value=""/>
+			</property>
+		</item>
+		<item name="armorMatonArms">
+			<property name="Extends" value="armorMediumMaster" param1="CustomIcon"/>
+			<property name="DescriptionKey" value="armorMatonArmsDesc"/>
+			<property name="DisplayType" value="armorMatonArms"/>
+			<property name="Tags" value="upperbody,hands,armor,armorHands,mediumArmor,mediumArmorPenalty,mediumArmorDeg,armorMediumSkill"/>
+			<property name="EquipSlot" value="Hands"/>
+			<property name="CreativeMode" value="Player"/>
+			<property name="CustomIcon" value="armorFarmerGloves"/>
+			<effect_group name="MatonArms">
+				<passive_effect name="ModSlots" operation="base_set" value="2,2,3,3,4,5" tier="1,2,3,4,5,6"/>
+				<passive_effect name="PhysicalDamageResist" operation="base_add" value="13,17.3" tier="1,6"/>
+				<passive_effect name="ElementalDamageResist" operation="base_add" value="13,17.3" tier="1,6" tags="heat,electrical"/>
+				<passive_effect name="DegradationMax" operation="base_set" value="250,500" tier="1,6"/>
+				<passive_effect name="DegradationPerUse" operation="base_set" value="1" tags="mediumArmorDeg"/>
+				<passive_effect name="Mobility" operation="perc_add" value="-.05"/>
+			</effect_group>
+			<property class="SDCS">
+				<property name="Prefab" value="#@modfolder:Resources/armure_maton.unity3d?Assets/ArmureMaton/ArmureBras.prefab"/>
+				<property name="TransformName" value="Armure_Bras"/>
+				<property name="Excludes" value=""/>
+			</property>
+		</item>
+		<item name="armorMatonBoots">
+			<property name="Extends" value="armorMediumMaster" param1="CustomIcon"/>
+			<property name="DescriptionKey" value="armorMatonBootsDesc"/>
+			<property name="DisplayType" value="armorMatonBoots"/>
+			<property name="Tags" value="lowerbody,feet,armor,armorFeet,mediumArmor,mediumArmorPenalty,mediumArmorDeg,armorMediumSkill"/>
+			<property name="EquipSlot" value="Feet"/>
+			<property name="CreativeMode" value="Player"/>
+			<property name="CustomIcon" value="armorFarmerBoots"/>
+			<effect_group name="MatonBoots">
+				<passive_effect name="ModSlots" operation="base_set" value="2,2,3,3,4,5" tier="1,2,3,4,5,6"/>
+				<passive_effect name="PhysicalDamageResist" operation="base_add" value="13,17.3" tier="1,6"/>
+				<passive_effect name="ElementalDamageResist" operation="base_add" value="13,17.3" tier="1,6" tags="heat,electrical"/>
+				<passive_effect name="DegradationMax" operation="base_set" value="250,500" tier="1,6"/>
+				<passive_effect name="DegradationPerUse" operation="base_set" value="1" tags="mediumArmorDeg"/>
+				<passive_effect name="Mobility" operation="perc_add" value="-.05"/>
+			</effect_group>
+			<property class="SDCS">
+				<property name="Prefab" value="#@modfolder:Resources/armure_maton.unity3d?Assets/ArmureMaton/ArmureJambieres.prefab"/>
+				<property name="TransformName" value="Armure_Jambieres"/>
+				<property name="Excludes" value=""/>
+			</property>
+		</item>
+	</append>
+</configs>

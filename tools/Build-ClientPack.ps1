@@ -37,14 +37,20 @@ $enc = New-Object System.Text.UTF8Encoding($false)
 </xml>
 '@, $enc)
 
-$zip = Join-Path $root "dist\TWD_Textes.zip"
+# Mods à installer TELS QUELS chez les joueurs (ils contiennent des modèles 3D que le serveur n'envoie pas).
+# Même nom de dossier que sur le serveur : leurs fichiers sont désignés par "#@modfolder:".
+$clientMods = @("TWD_ArmureMaton")
+foreach ($m in $clientMods) { Remove-Item (Join-Path $root "dist\$m") -Recurse -Force -ErrorAction SilentlyContinue; Copy-Item (Join-Path $root "Mods\$m") (Join-Path $root "dist\") -Recurse -Force }
+
+$zip = Join-Path $root "dist\TWD_Pack_Joueur.zip"
 Remove-Item $zip -ErrorAction SilentlyContinue
-Compress-Archive -Path $out -DestinationPath $zip
-Write-Host "$($lines.Count) textes -> $out (+ $zip)"
+Compress-Archive -Path (@($out) + ($clientMods | ForEach-Object { Join-Path $root "dist\$_" })) -DestinationPath $zip
+Write-Host "$($lines.Count) textes -> $out ; pack joueur (à dézipper dans <jeu>/Mods) : $zip"
 
 if ($InstallTo) {
     $dest = Join-Path $InstallTo "Mods\TWD_Textes"
     Remove-Item $dest -Recurse -Force -ErrorAction SilentlyContinue
     Copy-Item $out (Join-Path $InstallTo "Mods\") -Recurse -Force
-    Write-Host "Installé dans $dest"
+    foreach ($m in $clientMods) { $d2 = Join-Path $InstallTo "Mods\$m"; Remove-Item $d2 -Recurse -Force -ErrorAction SilentlyContinue; Copy-Item (Join-Path $root "dist\$m") (Join-Path $InstallTo "Mods\") -Recurse -Force }
+    Write-Host "Installé dans $InstallTo\Mods"
 }

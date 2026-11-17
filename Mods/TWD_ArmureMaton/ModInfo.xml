@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<Name value="TWD_ArmureMaton"/>
+	<DisplayName value="TWD - Armure de maton"/>
+	<Version value="1.0.1"/>
+	<Description value="Armure anti-émeute de gardien de prison en 4 pièces (casque, gilet, protège-bras, jambières). Butin rare, uniquement dans la prison. À installer AUSSI chez les joueurs (modèle 3D)."/>
+	<Author value="Renaud, intégration TWD"/>
+</xml>
