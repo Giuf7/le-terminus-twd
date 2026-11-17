@@ -8,11 +8,9 @@
 	<append xpath="/rwgmixer/township[not(property[@name='spawn_trader'])]">
 		<property name="spawn_trader" value="false"/>
 	</append>
-	<!-- Les "portes d'entrée" (gateway) des villes accueillent un avant-poste de marchand : désactivées -->
-	<set xpath="/rwgmixer/township/property[@name='spawn_gateway']/@value">false</set>
-	<append xpath="/rwgmixer/township[not(property[@name='spawn_gateway'])]">
-		<property name="spawn_gateway" value="false"/>
-	</append>
+	<!-- Les "portes d'entrée" (gateway) des villes RESTENT ACTIVES : le générateur ne trace de routes goudronnées
+	     qu'entre villes qui en ont (HighwayPlanner, vérifié le 17/11/2026 : sans elles, aucune route entre les villes).
+	     Leurs bâtiments sont des diners, stations-service, motels, aires de repos : pas de marchand. -->
 	<set xpath="/rwgmixer/prefab_spawn_adjust[starts-with(@partial_name,'trader_')]/@min_count">0</set>
 	<set xpath="/rwgmixer/prefab_spawn_adjust[starts-with(@partial_name,'trader_')]/@max_count">0</set>
 
@@ -45,31 +43,74 @@
 
 	<!-- Lieux emblématiques garantis -->
 	<append xpath="/rwgmixer">
-		<!-- La prison (saisons 3-4) : au moins une, en forêt -->
-		<prefab_spawn_adjust partial_name="prison_01" biomeTags="forest" bias="20" min_count="1" max_count="1"/>
-		<prefab_spawn_adjust partial_name="prison_02" biomeTags="forest" bias="20" min_count="1" max_count="1"/>
+		<!-- LA prison (saisons 3-4) : une seule, placée par TWD_Zones/worldgen.xml (plan) à l'ouest d'Alexandria -->
+		<prefab_spawn_adjust partial_name="prison_01" biomeTags="forest" bias="40" min_count="1" max_count="1"/>
+		<prefab_spawn_adjust partial_name="prison_02" min_count="0" max_count="0"/>
 		<!-- L'hôpital (Grady Memorial) -->
 		<prefab_spawn_adjust partial_name="hospital_01" bias="20" min_count="1" max_count="2"/>
 		<!-- Base militaire (Fort Benning / le CDC) -->
 		<prefab_spawn_adjust partial_name="base_military_01" bias="20" min_count="1" max_count="1"/>
 		<!-- Fermes (la ferme de Hershel) : plus fréquentes -->
-		<prefab_spawn_adjust partial_name="farm_" biomeTags="forest,burntforest" bias="4"/>
+		<prefab_spawn_adjust partial_name="farm_" biomeTags="forest,burntforest" bias="12"/>
+		<prefab_spawn_adjust partial_name="barn_" biomeTags="forest,burntforest" bias="8"/>
+		<prefab_spawn_adjust partial_name="cornfield_" biomeTags="forest,burntforest" bias="8"/>
+		<prefab_spawn_adjust partial_name="house_old_ranch_" biomeTags="forest,burntforest" bias="6"/>
 	</append>
 
-	<!-- Cartes 10000 m et plus : NOTRE CARTE (10240, décision du 17/11/2026).
-	     Atlanta : UNE seule très grande ville, environ 2,5 fois la taille maximale du jeu (28-40 cases de rues de 150 m).
-	     Villes variées : villes, bourgs, villages de campagne, villages de forêt et villages "brûlés" (autres quartiers).
-	     Entre les villes : beaucoup de lieux isolés et d'arrêts de bord de route. -->
+	<!-- Cartes 10000 m et plus : NOTRE CARTE (10240). PLAN DU 17/11/2026, chaque ville a son identité :
+	       Alexandria (centre)  : résidentiel + agricole, PvE neutre       -> type twd_alexandria
+	       Atlanta (nord-est)   : très grande ville (centre, tours...), PvP -> type citybig (90-110 cases de rues de 150 m)
+	       Woodbury (sud-est)   : petite ville résidentielle et commerçante -> type twd_woodbury
+	       Terminus (sud-ouest) : ville industrielle                        -> type twd_terminus
+	       + quelques hameaux et petites villes sans nom, et beaucoup de fermes entre les villes.
+	     Leur position est imposée par TWD_Zones/worldgen.xml (plan). -->
 	<set xpath="/rwgmixer/world[@name='large']/property[@class='citybig']/property[@name='count']/@value">1, 1, 1</set>
 	<set xpath="/rwgmixer/world[@name='large']/property[@class='citybig']/property[@name='tiles']/@value">90, 110</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='city']/property[@name='count']/@value">2, 3, 4</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='town']/property[@name='count']/@value">3, 4, 5</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='countrytown']/property[@name='count']/@value">3, 4, 6</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='forest_countrytown']/property[@name='count']/@value">4, 6, 8</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_countrytown']/property[@name='count']/@value">2, 3, 4</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_town']/property[@name='count']/@value">1, 2, 2</set>
-	<set xpath="/rwgmixer/world[@name='large']/property[@class='roadside']/property[@name='count']/@value">20, 30, 40</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='city']/property[@name='count']/@value">0, 0, 0</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='wasteland_city']/property[@name='count']/@value">0, 0, 0</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_countrytown']/property[@name='count']/@value">0, 0, 0</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_town']/property[@name='count']/@value">0, 0, 0</set>
+	<!-- Petites villes sans nom -->
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='town']/property[@name='count']/@value">2, 2, 3</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='town']/property[@name='tiles']/@value">6, 8</set>
+	<!-- Hameaux -->
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='countrytown']/property[@name='count']/@value">2, 2, 3</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='forest_countrytown']/property[@name='count']/@value">2, 3, 3</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='roadside']/property[@name='count']/@value">12, 16, 20</set>
 	<set xpath="/rwgmixer/world[@name='large']/property[@class='forest_wilderness']/property[@name='count']/@value">150, 280, 400</set>
-	<!-- Villages "brûlés" autorisés en forêt : autres quartiers (ruraux), pour varier l'architecture -->
-	<set xpath="/rwgmixer/township[@name='bforest_countrytown' or @name='bforest_town']/property[@name='biomes']/@value">forest,burntforest</set>
+	<append xpath="/rwgmixer/world[@name='large']">
+		<property class="twd_alexandria"><property name="count" value="1, 1, 1"/><property name="tiles" value="22, 28"/></property>
+		<property class="twd_terminus"><property name="count" value="1, 1, 1"/><property name="tiles" value="16, 20"/></property>
+		<property class="twd_woodbury"><property name="count" value="1, 1, 1"/><property name="tiles" value="12, 16"/></property>
+	</append>
+
+	<!-- Les trois types de villes du plan -->
+	<append xpath="/rwgmixer">
+		<township name="twd_alexandria">
+			<property name="biomes" value="forest,burntforest,desert,snow"/>
+			<property name="outskirt_district" value="forest_rural, .5"/>
+			<property name="spawn_trader" value="false"/>
+		</township>
+		<township name="twd_woodbury">
+			<property name="biomes" value="forest,burntforest,desert,snow"/>
+			<property name="outskirt_district" value="rural, .3"/>
+			<property name="spawn_trader" value="false"/>
+		</township>
+		<township name="twd_terminus">
+			<property name="biomes" value="forest,burntforest,desert,snow"/>
+			<property name="outskirt_district" value="rural, .2"/>
+			<property name="spawn_trader" value="false"/>
+		</township>
+	</append>
+	<!-- Quartiers autorisés pour chacune (identité) :
+	       Alexandria : maisons, lotissements de campagne, bourg ; fermes en bordure
+	       Woodbury   : maisons et commerces
+	       Terminus   : industrie uniquement -->
+	<set xpath="/rwgmixer/district[@name='residential']/property[@name='required_township']/@value">citybig,wasteland_city,city,town,bforest_town,twd_alexandria,twd_woodbury</set>
+	<set xpath="/rwgmixer/district[@name='countryresidential']/property[@name='required_township']/@value">countrytown,forest_countrytown,bforest_countrytown,twd_alexandria</set>
+	<set xpath="/rwgmixer/district[@name='countrytown']/property[@name='required_township']/@value">countrytown,forest_countrytown,bforest_countrytown,twd_alexandria</set>
+	<set xpath="/rwgmixer/district[@name='commercial']/property[@name='required_township']/@value">citybig,wasteland_city,city,town,bforest_town,twd_woodbury</set>
+	<set xpath="/rwgmixer/district[@name='industrial']/property[@name='required_township']/@value">citybig,wasteland_city,city,town,bforest_town,twd_terminus</set>
+	<set xpath="/rwgmixer/district[@name='rural']/property[@name='required_township']/@value">citybig,wasteland_city,city,town,bforest_town,twd_woodbury,twd_terminus</set>
+	<set xpath="/rwgmixer/district[@name='forest_rural']/property[@name='required_township']/@value">forest_countrytown,twd_alexandria</set>
 </configs>

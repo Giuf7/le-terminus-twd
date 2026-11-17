@@ -23,6 +23,23 @@ namespace TWDZones
         public static float TownSpacing = 0;      // distance minimale (m) entre deux villes ; 0 = règle du jeu
         public static float PrisonDistance = 0;   // distance minimale (m) entre une prison et une ville ; 0 = placement du jeu
 
+        // Plan de la carte (coordonnées du jeu, centre = 0,0 ; X vers l'est, Z vers le nord)
+        public class Rect2 { public string Name; public float X1, Z1, X2, Z2;
+            public bool Contains(float x, float z) { return x >= X1 && x <= X2 && z >= Z1 && z <= Z2; } }
+        public static readonly Dictionary<string, Rect2> TownRegions = new Dictionary<string, Rect2>(StringComparer.OrdinalIgnoreCase);
+        public static Rect2 PrisonRegion;
+        public static string PrisonOnly;   // seule prison autorisée (ex. "prison_01")
+
+        static Rect2 ReadRect(XmlElement e)
+        {
+            var r = new Rect2(); r.Name = e.GetAttribute("township");
+            r.X1 = float.Parse(e.GetAttribute("x1")); r.Z1 = float.Parse(e.GetAttribute("z1"));
+            r.X2 = float.Parse(e.GetAttribute("x2")); r.Z2 = float.Parse(e.GetAttribute("z2"));
+            if (r.X1 > r.X2) { float t = r.X1; r.X1 = r.X2; r.X2 = t; }
+            if (r.Z1 > r.Z2) { float t = r.Z1; r.Z1 = r.Z2; r.Z2 = t; }
+            return r;
+        }
+
         public static void Load()
         {
             Loaded = true;
@@ -37,6 +54,9 @@ namespace TWDZones
             Traders = Str(r, "traders") != "false";
             TownSpacing = Math.Max(0, Int(r, "townspacing"));
             PrisonDistance = Math.Max(0, Int(r, "prisondistance"));
+            foreach (XmlElement e in r.SelectNodes("plan/town")) { Rect2 t = ReadRect(e); TownRegions[t.Name] = t; }
+            XmlElement pe = r.SelectSingleNode("plan/prison") as XmlElement;
+            if (pe != null) { PrisonRegion = ReadRect(pe); PrisonOnly = pe.GetAttribute("only"); }
             Active = true;
         }
 
@@ -105,10 +125,32 @@ namespace TWDZones
         public static bool Prefix(global::WorldGenerationEngineFinal.TownPlanner __instance, Vector2i position, bool isRoadsideTownship, ref bool __result)
         {
             if (!WorldGenSettings.Loaded) WorldGenSettings.Load();
-            if (!WorldGenSettings.Active || WorldGenSettings.TownSpacing <= 0 || isRoadsideTownship) return true;
+            if (!WorldGenSettings.Active) return true;
             WB wb = __instance.worldBuilder;
             float tile = WorldGenHelpers.TileMeters(wb);
             if (tile <= 0) return true;
+
+            // Plan de la carte : chaque ville nommée dans sa région ; les autres (hameaux, bords de route) hors de ces régions
+            if (WorldGenSettings.TownRegions.Count > 0 && Patch_WorldGenCurrentTownship.Current != null)
+            {
+                float half = wb.WorldSize / 2f;
+                float gx = position.x * tile + tile / 2f - half, gz = position.y * tile + tile / 2f - half;
+                WorldGenSettings.Rect2 own;
+                if (WorldGenSettings.TownRegions.TryGetValue(Patch_WorldGenCurrentTownship.Current, out own))
+                {
+                    if (!own.Contains(gx, gz)) { __result = true; return false; }
+                }
+                else
+                {
+                    foreach (var reg in WorldGenSettings.TownRegions.Values)
+                        if (gx > reg.X1 - 600 && gx < reg.X2 + 600 && gz > reg.Z1 - 600 && gz < reg.Z2 + 600) { __result = true; return false; }
+                    // ... et loin de la région de la prison, qui doit rester isolée
+                    var pr = WorldGenSettings.PrisonRegion;
+                    float m = WorldGenSettings.PrisonDistance + 600;
+                    if (pr != null && gx > pr.X1 - m && gx < pr.X2 + m && gz > pr.Z1 - m && gz < pr.Z2 + m) { __result = true; return false; }
+                }
+            }
+            if (WorldGenSettings.TownSpacing <= 0 || isRoadsideTownship) return true;
             float minTiles = WorldGenSettings.TownSpacing / tile;
             float min2 = minTiles * minTiles;
             foreach (var t in wb.Townships)
@@ -149,8 +191,14 @@ namespace TWDZones
             var data = wb.PrefabManager.prefabManagerData;
             var rural = FastTags<TagGroup.Poi>.Parse("rural");
             int n = 0;
+            string only = WorldGenSettings.PrisonOnly;   // ex. "prison_01" : les autres prisons ne sont jamais placées
             foreach (PrefabData p in data.prefabDataList)
-                if (p != null && IsPrison(p.Name)) { p.Tags = p.Tags.Remove(rural) | data.WildernessTags; n++; }
+            {
+                if (p == null || !IsPrison(p.Name)) continue;
+                if (!string.IsNullOrEmpty(only) && !p.Name.StartsWith(only, StringComparison.OrdinalIgnoreCase))
+                    p.Tags = p.Tags.Remove(rural).Remove(data.WildernessTags);   // ni en ville, ni en pleine nature
+                else { p.Tags = p.Tags.Remove(rural) | data.WildernessTags; n++; }
+            }
             Debug.Log("[TWD_WorldGen] " + n + " prison(s) déplacée(s) vers les lieux isolés (min " + WorldGenSettings.PrisonDistance + " m des villes)");
         }
 
@@ -180,6 +228,37 @@ namespace TWDZones
             if (!WorldGenSettings.Loaded) WorldGenSettings.Load();
             WorldGenHelpers.RetagPrisons(__instance.worldBuilder);
         }
+
+        // Bilan : où chaque ville a été placée (vérification du plan)
+        public static void Postfix(global::WorldGenerationEngineFinal.TownPlanner __instance)
+        {
+            if (!WorldGenSettings.Active) return;
+            WB wb = __instance.worldBuilder; float half = wb.WorldSize / 2f;
+            var seen = new HashSet<string>();
+            foreach (var t in wb.Townships)
+            {
+                if (t.IsRoadside()) continue;
+                string n = t.townshipData.Name;
+                float sx = 0, sz = 0; int c = 0;
+                foreach (var st in t.Streets.Values) { sx += st.WorldPositionCenter.x; sz += st.WorldPositionCenter.y; c++; }
+                if (c == 0) continue;
+                seen.Add(n);
+                Debug.Log("[TWD_WorldGen] ville " + n + " : " + c + " cases, centre (" + (int)(sx / c - half) + ", " + (int)(sz / c - half) + ")");
+            }
+            foreach (string n in WorldGenSettings.TownRegions.Keys)
+                if (!seen.Contains(n)) Debug.LogWarning("[TWD_WorldGen] ville " + n + " NON PLACÉE (région trop petite ou occupée ?)");
+        }
+    }
+
+    // Type de ville en cours de placement (le générateur appelle cette méthode pour chaque ville, avant de tester des emplacements)
+    [HarmonyPatch(typeof(global::WorldGenerationEngineFinal.TownPlanner), "getBiomeWithMostAvailableSpace")]
+    public static class Patch_WorldGenCurrentTownship
+    {
+        public static string Current;
+        public static void Prefix(global::WorldGenerationEngineFinal.TownshipData _townshipData)
+        {
+            Current = _townshipData == null ? null : _townshipData.Name;
+        }
     }
 
     // Emplacement trop proche d'une ville : les prisons sont masquées le temps du choix, le jeu prend un autre bâtiment.
@@ -190,8 +269,11 @@ namespace TWDZones
         public static void Prefix(global::WorldGenerationEngineFinal.PrefabManager __instance, Vector2i center, out List<KeyValuePair<PrefabData, FastTags<TagGroup.Poi>>> __state)
         {
             __state = null;
-            if (!WorldGenSettings.Active || WorldGenSettings.PrisonDistance <= 0) return;
-            if (WorldGenHelpers.DistanceToTowns(__instance.worldBuilder, center) >= WorldGenSettings.PrisonDistance) return;
+            if (!WorldGenSettings.Active || (WorldGenSettings.PrisonDistance <= 0 && WorldGenSettings.PrisonRegion == null)) return;
+            float half = __instance.worldBuilder.WorldSize / 2f;
+            bool inRegion = WorldGenSettings.PrisonRegion == null || WorldGenSettings.PrisonRegion.Contains(center.x - half, center.y - half);
+            bool farEnough = WorldGenSettings.PrisonDistance <= 0 || WorldGenHelpers.DistanceToTowns(__instance.worldBuilder, center) >= WorldGenSettings.PrisonDistance;
+            if (inRegion && farEnough) return;   // emplacement valable : les prisons restent proposées
             var data = __instance.prefabManagerData;
             foreach (PrefabData p in data.prefabDataList)
             {

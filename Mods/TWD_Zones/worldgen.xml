@@ -21,5 +21,15 @@
 	<!-- Distance minimale entre deux villes (m), mesurée entre leurs rues. 0 = règle du jeu. -->
 	<townspacing>1500</townspacing>
 	<!-- Les prisons ne sont placées qu'en pleine nature, à au moins cette distance (m) de toute ville. 0 = placement du jeu. -->
-	<prisondistance>2000</prisondistance>
+	<prisondistance>1000</prisondistance>
+	<!-- PLAN DE LA CARTE (décision du 17/11/2026). Coordonnées du jeu : centre = 0,0 ; X vers l'est, Z vers le nord.
+	     <town> : région où le générateur doit placer le PREMIER point de la ville (elle s'étend ensuite autour).
+	     Les autres villes (hameaux, petites villes, bords de route) sont tenues à plus de 600 m de ces régions. -->
+	<plan>
+		<town township="twd_alexandria" x1="-700"  z1="-700"  x2="700"   z2="700"/>   <!-- centre : Alexandria, PvE neutre -->
+		<town township="citybig"        x1="1500"  z1="1500"  x2="4300"  z2="4300"/>  <!-- nord-est : Atlanta, PvP -->
+		<town township="twd_woodbury"   x1="2000"  z1="-3800" x2="3800"  z2="-2000"/> <!-- sud-est : Woodbury, PvP -->
+		<town township="twd_terminus"   x1="-3800" z1="-3800" x2="-2000" z2="-2000"/> <!-- sud-ouest : Terminus, industriel, PvP -->
+		<prison only="prison_01" x1="-3000" z1="-600" x2="-2000" z2="600"/>                           <!-- ouest, à mi-chemin d'Alexandria et du bord : PvP -->
+	</plan>
 </worldgen>

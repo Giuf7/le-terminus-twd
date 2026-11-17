@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Zones du serveur TWD, carte "North Kezunahu County" (graine TWD_Georgia_10k, 10240, générée le 17/11/2026).
-     - Hors de toute zone : PvE (defaultPvp="false").
+<!-- Zones du serveur TWD, carte "Toditabi Territory" (graine TWD_Plan_v1, 10240, générée le 17/11/2026 selon le plan :
+     Alexandria au centre, prison à l'ouest, Atlanta au nord-est, Woodbury au sud-est, Terminus au sud-ouest).
+     - Hors de toute zone : PvE (defaultPvp="false"). Alexandria, ville neutre, n'a donc pas de zone.
      - pvp="true"  : zone PvP. Les dégâts entre joueurs ne passent que si l'attaquant ET la victime y sont.
        Chaque zone PvP reçoit aussi un véhicule abandonné (TWD_Vehicles).
      - pvp="false" : zone sûre, prioritaire sur une zone PvP qui la contient.
      - Cercle : x, z, radius. Rectangle : x1, z1, x2, z2. (x = Est/Ouest, z = Nord/Sud, en mètres)
-     Ajustement en jeu : commande console "twdzones" (voir LISTE.md). -->
+     Mesures faites dans prefabs.xml (96 % des bâtiments de chaque ville). Ajustement en jeu : commande "twdzones". -->
 <zones defaultPvp="false">
-	<!-- La très grande ville du centre-ouest (~785 bâtiments, 29 tours, tribunal, hôpitaux, base militaire au sud).
-	     Rectangle = 96 % de ses bâtiments (mesuré dans prefabs.xml), plus une marge. Les prisons sont à plus de 2 km. -->
-	<zone name="Atlanta" pvp="true" x1="-4100" z1="-850" x2="-1900" z2="1150" />
-	<!-- Petite ville avec son église, ~2,8 km au nord d'Atlanta (90 % des bâtiments à moins de 360 m) -->
-	<zone name="Woodbury" pvp="true" x="-2134" z="2745" radius="400" />
-	<!-- Petite ville industrielle (usine, armurerie), presque au centre de la carte (90 % des bâtiments à moins de 390 m) -->
-	<zone name="Terminus" pvp="true" x="26" z="-1456" radius="420" />
+	<!-- Nord-est : la très grande ville (~740 bâtiments, 28 tours, base militaire, hôpital) -->
+	<zone name="Atlanta" pvp="true" x1="2900" z1="350" x2="4850" z2="2300" />
+	<!-- Sud-est : petite ville résidentielle (90 % des bâtiments à moins de 480 m) -->
+	<zone name="Woodbury" pvp="true" x="2980" z="-3149" radius="520" />
+	<!-- Sud-ouest : ville industrielle (90 % des bâtiments à moins de 550 m) -->
+	<zone name="Terminus" pvp="true" x="-2471" z="-2806" radius="580" />
+	<!-- Ouest, à mi-chemin d'Alexandria et du bord : la prison, isolée -->
+	<zone name="Prison" pvp="true" x="-2344" z="-548" radius="200" />
 </zones>
