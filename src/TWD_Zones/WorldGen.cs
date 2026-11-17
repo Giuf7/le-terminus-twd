@@ -191,6 +191,16 @@ namespace TWDZones
             var data = wb.PrefabManager.prefabManagerData;
             var rural = FastTags<TagGroup.Poi>.Parse("rural");
             int n = 0;
+            // Pas de marchands : les portes d'entrée des villes (gardées pour les routes) ont un emplacement de marchand
+            // dans leur tuile de rue ; "spawn_trader false" ne l'empêche pas (trader_rekt construit à Atlanta, 17/11/2026).
+            // Les bâtiments de marchand perdent toutes leurs étiquettes : le générateur ne peut plus les choisir.
+            if (!WorldGenSettings.Traders)
+            {
+                int nt = 0;
+                foreach (PrefabData p in data.prefabDataList)
+                    if (p != null && p.Name != null && p.Name.StartsWith("trader_", StringComparison.OrdinalIgnoreCase)) { p.Tags = p.Tags.Remove(p.Tags); nt++; }
+                Debug.Log("[TWD_WorldGen] " + nt + " bâtiment(s) de marchand retiré(s) de la génération");
+            }
             string only = WorldGenSettings.PrisonOnly;   // ex. "prison_01" : les autres prisons ne sont jamais placées
             foreach (PrefabData p in data.prefabDataList)
             {
