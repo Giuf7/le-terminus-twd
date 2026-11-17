@@ -19,3 +19,6 @@ dist/
 # --- Divers ---
 Thumbs.db
 desktop.ini
+
+# --- Bot Discord : gardé en local uniquement (17/11/2026) ---
+discord-bot/
