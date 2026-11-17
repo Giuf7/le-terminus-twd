@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Configuration WalkerSim 2 pour le serveur TWD.
+  Original du mod conservé dans WalkerSim.default.xml.
+  Doc : https://7dtd-walkersim2.readthedocs.io/
+
+  Choix TWD :
+  - PopulationDensity 220 / km² (défaut 160) : ~14 800 rôdeurs simulés sur une carte 8192.
+  - Population COMPLETE dès le jour 1 (PopulationStartPercent 100, FullPopulationAtDay 1),
+    cohérent avec la difficulté fixe du mod TWD_Core.
+  - Les rôdeurs tués reviennent par les bords de la carte : des hordes arrivent de "l'extérieur".
+  - Hordes de route renforcées (le troupeau de l'autoroute, saison 2) : poids 8, groupes de 60.
+  - Pas de Blood Moon sur ce serveur : la simulation ne se met jamais en pause.
+  - Bruit : x2 côté jeu (TWD_Core/sounds.xml) ET portée x3 dans la simulation (SoundDistanceScale 3) : un coup de feu attire les hordes de loin (17/11/2026). Journal des événements activé pour vérifier.
+-->
+<WalkerSim xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://zeh.matt/WalkerSim WalkerSimSchema.xsd" Version="5" xmlns="http://zeh.matt/WalkerSim">
+  <Logging>
+    <General>true</General>
+    <Spawns>false</Spawns>
+    <Despawns>false</Despawns>
+    <EntityClassSelection>false</EntityClassSelection>
+    <Events>false</Events>
+  </Logging>
+  <RandomSeed>1031</RandomSeed>
+  <PopulationDensity>220</PopulationDensity>
+  <SpawnActivationRadius>96</SpawnActivationRadius>
+  <StartAgentsGrouped>true</StartAgentsGrouped>
+  <EnhancedSoundAwareness>true</EnhancedSoundAwareness>
+  <SoundDistanceScale>3</SoundDistanceScale>
+  <AgentStartPosition>Mixed</AgentStartPosition>
+  <AgentRespawnPosition>RandomBorderLocation</AgentRespawnPosition>
+  <PauseDuringBloodmoon>false</PauseDuringBloodmoon>
+  <SpawnProtectionTime>300</SpawnProtectionTime>
+  <InfiniteZombieLifetime>true</InfiniteZombieLifetime>
+  <MaxSpawnedZombies>80%</MaxSpawnedZombies>
+  <PopulationStartPercent>100</PopulationStartPercent>
+  <FullPopulationAtDay>1</FullPopulationAtDay>
+  <Systems><!-- Cohésion des hordes renforcée le 17/11/2026 (retour de test : « hordes très éparpillées ») : FlockSameGroup 0.15 sur 60 m, AlignSameGroup 0.2 sur 60 m, marche aléatoire 0.08, évitement interne 0.05 sur 4 m, vent 0.1 max. Les solitaires (Loners) restent isolés. -->
+    <!-- Rôdeurs attirés par les villes : Atlanta grouille -->
+    <System Name="City Visitors" Weight="8" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#00E600">
+      <Processor Type="CityVisitor" Distance="50" Power="0.3" Param1="4" Param2="8" />
+      <Processor Type="AvoidAnyGroup" Distance="10" Power="0.2" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+    </System>
+    <!-- Les grands troupeaux qui suivent les routes (l'autoroute d'Atlanta, saison 2) -->
+    <System Name="Street Hordes" Weight="8" GroupSize="60" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#E60000">
+      <Processor Type="StickToRoads" Distance="50" Power="0.5" />
+      <Processor Type="Wind" Distance="50" Power="0.001" />
+      <Processor Type="AvoidSameGroup" Distance="4" Power="0.05" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+    </System>
+    <!-- Hordes errantes générales, poussées par le vent -->
+    <System Name="General Horde" Weight="6" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#FFADFF">
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+      <Processor Type="AvoidSameGroup" Distance="4" Power="0.05" />
+      <Processor Type="Wind" Distance="50" Power="0.1" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+      <Processor Type="RandomWalk" Distance="50" Power="0.08" Param1="500" Param2="500" />
+    </System>
+    <!-- Rôdeurs qui traînent autour des bâtiments -->
+    <System Name="POI Protectors" Weight="2" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#00A8FF">
+      <Processor Type="StickToPOIs" Distance="50" Power="0.1" />
+      <Processor Type="AvoidSameGroup" Distance="4" Power="0.05" />
+      <Processor Type="AlignAnyGroup" Distance="50" Power="0.1" />
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+    </System>
+    <!-- Rôdeurs des bois, loin des routes (la forêt de Géorgie) -->
+    <System Name="Hillbillies" Weight="2" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#FFFFFF">
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+      <Processor Type="AvoidRoads" Distance="50" Power="0.01" />
+      <Processor Type="AvoidSameGroup" Distance="4" Power="0.05" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+      <Processor Type="AvoidOtherGroup" Distance="20" Power="0.01" />
+      <Processor Type="Wind" Distance="50" Power="0.1" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+      <Processor Type="AvoidCities" Distance="50" Power="0.0501" />
+    </System>
+    <System Name="City/Road Visitors" Weight="1" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#FFE600">
+      <Processor Type="CityVisitor" Distance="50" Power="0.3" Param1="2" Param2="4" />
+      <Processor Type="AvoidSameGroup" Distance="4" Power="0.05" />
+      <Processor Type="WorldEvents" Distance="50" Power="0.6" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" />
+      <Processor Type="StickToRoads" Distance="50" Power="0.15" />
+    
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" /></System>
+    <!-- Rôdeurs isolés : on n'est jamais vraiment seul -->
+    <System Name="Loners" Weight="1" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#FF6B00">
+      <Processor Type="AvoidAnyGroup" Distance="250" Power="0.5" />
+      <Processor Type="WindInverted" Distance="50" Power="0.5" /></System>
+    <System Name="Random Walkers" Weight="1" GroupSize="24" StartPosition="Global" RespawnPosition="Global" SpeedScale="1" PostSpawnBehavior="Wander" PostSpawnWanderSpeed="Walk" MapEdgeBehavior="Warp" Color="#8778ED">
+      <Processor Type="RandomWalk" Distance="50" Power="0.08" Param1="1060" Param2="1060" />
+    
+      <Processor Type="FlockSameGroup" Distance="60" Power="0.15" />
+      <Processor Type="AlignSameGroup" Distance="60" Power="0.2" /></System>
+  </Systems>
+</WalkerSim>

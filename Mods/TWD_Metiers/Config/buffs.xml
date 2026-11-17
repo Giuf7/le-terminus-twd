@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Metiers.ps1 - ne pas modifier a la main. -->
+<configs>
+	<!-- Amputation au kit chirurgical (Médecin) : même logique que buffTWDAmputationAttempt (TWD_Core),
+	     mais -15 PV et une hémorragie courte. -->
+	<append xpath="/buffs">
+		<buff name="buffTWDSurgeryAttempt" name_key="buffTWDAmputationAttemptName" hidden="true">
+			<stack_type value="ignore"/>
+			<duration value=".1"/>
+			<effect_group>
+				<requirement name="!HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdAmputationNotInfected"/>
+			</effect_group>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyStats" stat="Health" operation="subtract" value="15"/>
+				<triggered_effect trigger="onSelfBuffStart" action="AddBuff" buff="buffTWDHemorrhageLight"/>
+				<triggered_effect trigger="onSelfBuffStart" action="AddBuff" buff="buffTWDAmputated"/>
+			</effect_group>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<requirement name="CVarCompare" cvar="infectionCounter" operation="LT" value="@$infectionStage2Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdSurgerySuccess"/>
+				<triggered_effect trigger="onSelfBuffStart" action="RemoveBuff" buff="buffInfectionMain"/>
+			</effect_group>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<requirement name="CVarCompare" cvar="infectionCounter" operation="GTE" value="@$infectionStage2Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdAmputationTooLate"/>
+			</effect_group>
+		</buff>
+
+		<buff name="buffTWDHemorrhageLight" name_key="buffTWDHemorrhageName" description_key="buffTWDHemorrhageDesc" icon="ui_game_symbol_critical" icon_color="255,128,0">
+			<damage_type value="bloodloss"/>
+			<damage_source value="Internal"/>
+			<stack_type value="replace"/>
+			<duration value="45"/>
+			<display_value value="duration"/>
+			<display_value_format value="time"/>
+			<effect_group>
+				<passive_effect name="HealthChangeOT" operation="base_subtract" value="0.2"/>
+				<triggered_effect trigger="onSelfDied" action="RemoveBuff" buff="buffTWDHemorrhageLight"/>
+			</effect_group>
+		</buff>
+	</append>
+	<!-- Exclusivité des métiers : twdMetierBlock<M> = 1 si un autre métier est déjà pris -->
+	<append xpath="/buffs/buff[@name='buffStatusCheck01']">
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockMedecin" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockMedecin" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierMedecin"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierMedecin"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockChasseur" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockChasseur" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierChasseur"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierChasseur"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockSoldat" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockSoldat" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierSoldat"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierSoldat"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockMecanicien" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockMecanicien" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierMecanicien"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierMecanicien"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockIngenieur" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockIngenieur" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierIngenieur"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierIngenieur"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockFermier" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockFermier" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierFermier"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierFermier"/>
+		</effect_group>
+		<effect_group><triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockBatisseur" operation="set" value="0"/></effect_group>
+		<effect_group>
+			<requirement_group op="or">
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+			</requirement_group>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierBlockBatisseur" operation="set" value="1"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			<requirement name="!HasBuff" buff="buffTWDMetierBatisseur"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffTWDMetierBatisseur"/>
+		</effect_group>
+		<effect_group>
+			<requirement name="CVarCompare" cvar="twdMetierIntro" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="twdMetierIntro" operation="set" value="1"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="CallGameEvent" event="twd_metier_intro"/>
+			<triggered_effect trigger="onSelfBuffUpdate" action="ShowToolbeltMessage" message_key="twdMetierIntroMsg"/>
+		</effect_group>
+	</append>
+	<append xpath="/buffs">
+		<buff name="buffTWDMetierMedecin" name_key="perkTWDMetierMedecinName" description_key="perkTWDMetierMedecinRank1LongDesc" icon="ui_game_symbol_medical" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierMedecin"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierChasseur" name_key="perkTWDMetierChasseurName" description_key="perkTWDMetierChasseurRank1LongDesc" icon="ui_game_symbol_archery" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierChasseur"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierSoldat" name_key="perkTWDMetierSoldatName" description_key="perkTWDMetierSoldatRank1LongDesc" icon="ui_game_symbol_rifle" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierSoldat"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierMecanicien" name_key="perkTWDMetierMecanicienName" description_key="perkTWDMetierMecanicienRank1LongDesc" icon="ui_game_symbol_service" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierMecanicien"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierIngenieur" name_key="perkTWDMetierIngenieurName" description_key="perkTWDMetierIngenieurRank1LongDesc" icon="ui_game_symbol_electric_generator" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierIngenieur"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierFermier" name_key="perkTWDMetierFermierName" description_key="perkTWDMetierFermierRank1LongDesc" icon="ui_game_symbol_tree" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierFermier"/>
+			</effect_group>
+		</buff>
+		<buff name="buffTWDMetierBatisseur" name_key="perkTWDMetierBatisseurName" description_key="perkTWDMetierBatisseurRank1LongDesc" icon="ui_game_symbol_mining" icon_color="210,190,140">
+			<stack_type value="ignore"/><duration value="0"/>
+			<effect_group>
+				<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+				<triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffTWDMetierBatisseur"/>
+			</effect_group>
+		</buff>
+	</append>
+</configs>

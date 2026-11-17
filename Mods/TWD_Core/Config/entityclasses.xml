@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- =====================================================================
+	     KIT DE SURVIE DU JOUR 1
+	     Donné à la première arrivée sur le serveur (nouveau personnage).
+	     Une arme de mêlée pour viser la tête, une arme silencieuse, de quoi
+	     tenir 2 jours et se soigner. Pas d'arme à feu : le bruit attire les rôdeurs.
+	     ===================================================================== -->
+	<set xpath="/entity_classes/entity_class[@name='playerMale']/property[@class='ItemsOnEnterGame']/property[@name='GameModeSurvivalMP']/@value">meleeWpnBladeT1HuntingKnife,meleeWpnClubT1BaseballBat,meleeToolTorch,foodCanBeef=2,foodCanPeas,drinkJarBoiledWater=3,medicalBandage=4,medicalFirstAidBandage</set>
+	<set xpath="/entity_classes/entity_class[@name='playerMale']/property[@class='ItemsOnEnterGame']/property[@name='GameModeSurvival']/@value">meleeWpnBladeT1HuntingKnife,meleeWpnClubT1BaseballBat,meleeToolTorch,foodCanBeef=2,foodCanPeas,drinkJarBoiledWater=3,medicalBandage=4,medicalFirstAidBandage</set>
+
+	<!-- KIT REDUIT A LA REAPPARITION APRES UNE MORT : couteau + bandage
+	     (game event "twd_respawn_kit" défini dans gameevents.xml) -->
+	<append xpath="/entity_classes/entity_class[@name='playerMale']/effect_group[triggered_effect[@trigger='onSelfRespawn']]">
+		<triggered_effect trigger="onSelfRespawn" action="CallGameEvent" event="twd_respawn_kit"/>
+
+	</append>
+
+	<!-- UN COUP À LA TÊTE SUFFIT (comme dans TWD) : tous les rôdeurs ont 11 PV, sans variation aléatoire.
+	     Avec le mode headshots only, seuls les coups à la tête comptent, et la tête double les dégâts du joueur :
+	     poings : 0 dégât aux créatures (items.xml) ; outil le plus faible, la hache en pierre, 6 x2 = 12 (1 coup) ; toute autre arme : 1 coup.
+	     Seuls les rôdeurs utilisent ces valeurs (^healthSlim, ^healthNormal...) ; les animaux ne sont pas touchés. -->
+	<set xpath="/entity_classes/replace_passive_effect/property[starts-with(@name,'health')]/@value">11</set>
+	<remove xpath="/entity_classes/entity_class[@name='zombieTemplateMale']/effect_group/passive_effect[@name='HealthMax' and @operation='perc_add']"/>
+
+	<!-- Pas d'armure qui empêcherait de tuer d'un coup à la tête : l'ouvrier (20 %), le motard (20 %), le soldat (50 %)
+	     et le démolisseur (60 %) réduisaient les dégâts (hache en pierre : 12 -> 6, pas assez pour 11 PV). Insectes inchangés. -->
+	<remove xpath="/entity_classes/entity_class[starts-with(@name,'zombie')]//passive_effect[@name='PhysicalDamageResist']"/>
+
+	<!-- MORSURE : chaque coup de rôdeur a 5 % de chance d'être une morsure infectieuse (en plus des blessures critiques du jeu).
+	     Sur le joueur lui-même (comme les blessures critiques du jeu, buffCumChanceCH) : c'est son jeu qui calcule les coups reçus. -->
+	<append xpath="/entity_classes/entity_class[@name='playerMale']/effect_group[triggered_effect[@buff='buffCumChanceCH']]">
+		<triggered_effect trigger="onOtherAttackedSelf" action="AddBuff" target="self" buff="buffInfectionCatch">
+			<requirement name="EntityTagCompare" target="other" tags="zombie"/>
+			<requirement name="RandomRoll" seed_type="Random" min_max="0,100" operation="LTE" value="5"/>
+		</triggered_effect>
+	</append>
+
+	<!-- FAIM ET SOIF PLUS LENTES : sans marchands ni loot renouvelé, la nourriture est rare (17/11/2026).
+	     Faim -40 % (vanilla 0.00408), soif -25 % (vanilla 0.00453, l'eau se trouve et se fait bouillir). -->
+	<set xpath="/entity_classes/entity_class[@name='playerMale']//passive_effect[@name='FoodLossPerStaminaPointGained' and @operation='base_set']/@value">0.00245</set>
+	<set xpath="/entity_classes/entity_class[@name='playerMale']//passive_effect[@name='WaterLossPerStaminaPointGained' and @operation='base_set']/@value">0.0034</set>
+</configs>

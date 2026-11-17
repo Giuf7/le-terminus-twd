@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<Name value="TWD_Vehicles" />
+	<DisplayName value="TWD Vehicles" />
+	<Description value="Le bruit des moteurs attire les rôdeurs (et les hordes WalkerSim). Côté serveur uniquement. Nécessite TWD_Core (son twd_vehicle_engine)." />
+	<Author value="TWD Server" />
+	<Version value="0.1.0" />
+	<Website value="" />
+	<SkipWithAntiCheat value="true" />
+</xml>

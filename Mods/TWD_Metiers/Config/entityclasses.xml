@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Metiers.ps1 - ne pas modifier a la main. -->
+<configs>
+	<append xpath="/entity_classes/entity_class[@name='playerMale']/effect_group[triggered_effect[@trigger='onSelfRespawn']]">
+		<triggered_effect trigger="onSelfDied" action="ModifyCVar" cvar="twdMetierIntro" operation="set" value="0"/>
+	</append>
+</configs>

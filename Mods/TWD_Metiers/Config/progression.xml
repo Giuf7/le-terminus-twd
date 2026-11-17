@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Metiers.ps1 - ne pas modifier a la main. -->
+<configs>
+	<!-- Onglet Métiers (premier onglet des compétences) -->
+	<insertBefore xpath="/progression/attributes/attribute[@name='attPerception']">
+		<attribute name="attTWDMetiers" name_key="attTWDMetiersName" desc_key="attTWDMetiersDesc" icon="ui_game_symbol_tool" min_level="0" max_level="0" base_skill_point_cost="1" hidden="true"><level_requirements level="1"><requirement name="PlayerLevel" operation="GTE" value="1" desc_key="reqGenericPoints01"/></level_requirements></attribute>
+	</insertBefore>
+	<insertBefore xpath="/progression/skills/skill[@name='skillPerceptionCombat']">
+		<skill name="skillTWDMetiers" parent="attTWDMetiers" name_key="attTWDMetiersName" desc_key="attTWDMetiersDesc" long_desc_key="attTWDMetiersDesc" icon="ui_game_symbol_tool" hidden="true"><effect_group/></skill>
+	</insertBefore>
+	<!-- Les 7 compétences de métier (exclusives, 1 point) -->
+	<append xpath="/progression/perks">
+		<perk name="perkTWDMetierMedecin" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierMedecinName" desc_key="perkTWDMetierMedecinDesc" icon="ui_game_symbol_medical" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockMedecin" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierMedecinRank1Desc" long_desc_key="perkTWDMetierMedecinRank1LongDesc"/>
+				<passive_effect name="RecipeTagUnlocked" operation="base_set" level="1" value="1" tags="medicalTWDSurgicalKit"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierChasseur" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierChasseurName" desc_key="perkTWDMetierChasseurDesc" icon="ui_game_symbol_archery" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockChasseur" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierChasseurRank1Desc" long_desc_key="perkTWDMetierChasseurRank1LongDesc"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierSoldat" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierSoldatName" desc_key="perkTWDMetierSoldatDesc" icon="ui_game_symbol_rifle" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockSoldat" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierSoldatRank1Desc" long_desc_key="perkTWDMetierSoldatRank1LongDesc"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierMecanicien" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierMecanicienName" desc_key="perkTWDMetierMecanicienDesc" icon="ui_game_symbol_service" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockMecanicien" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierMecanicienRank1Desc" long_desc_key="perkTWDMetierMecanicienRank1LongDesc"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierIngenieur" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierIngenieurName" desc_key="perkTWDMetierIngenieurDesc" icon="ui_game_symbol_electric_generator" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockIngenieur" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierIngenieurRank1Desc" long_desc_key="perkTWDMetierIngenieurRank1LongDesc"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierFermier" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierFermierName" desc_key="perkTWDMetierFermierDesc" icon="ui_game_symbol_tree" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockFermier" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierFermierRank1Desc" long_desc_key="perkTWDMetierFermierRank1LongDesc"/>
+			</effect_group>
+		</perk>
+		<perk name="perkTWDMetierBatisseur" max_level="1" parent="skillTWDMetiers" name_key="perkTWDMetierBatisseurName" desc_key="perkTWDMetierBatisseurDesc" icon="ui_game_symbol_mining" override_cost="1">
+			<level_requirements level="1">
+				<requirement name="CVarCompare" cvar="twdMetierBlockBatisseur" operation="Equals" value="0" desc_key="twdReqPasDeMetier"/>
+			</level_requirements>
+			<effect_group>
+				<effect_description level="1" desc_key="perkTWDMetierBatisseurRank1Desc" long_desc_key="perkTWDMetierBatisseurRank1LongDesc"/>
+			</effect_group>
+		</perk>
+	</append>
+
+	<!-- Compétences : niveaux 3+ réservés au métier -->
+	<append xpath="/progression/perks/perk[@name='perkPhysician']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPhysician']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPhysician']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHealingFactor']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHealingFactor']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHealingFactor']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkCharismaticNature']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkCharismaticNature']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkCharismaticNature']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1" desc_key="twdReqMetierMedecin"/></append>
+	<append xpath="/progression/perks/perk[@name='perkArchery']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkArchery']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkArchery']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeepCuts']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeepCuts']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeepCuts']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfAgility']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfAgility']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfAgility']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHiddenStrike']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHiddenStrike']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHiddenStrike']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFromTheShadows']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFromTheShadows']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFromTheShadows']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkParkour']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkParkour']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkParkour']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRuleOneCardio']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRuleOneCardio']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRuleOneCardio']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJavelinMaster']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJavelinMaster']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJavelinMaster']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfPerception']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfPerception']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfPerception']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAnimalTracker']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAnimalTracker']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAnimalTracker']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPenetrator']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPenetrator']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPenetrator']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkTheHuntsman']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkTheHuntsman']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkTheHuntsman']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1" desc_key="twdReqMetierChasseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeadEye']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeadEye']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDeadEye']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDemolitionsExpert']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDemolitionsExpert']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkDemolitionsExpert']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBoomstick']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBoomstick']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBoomstick']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBrawler']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBrawler']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkBrawler']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMachineGunner']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMachineGunner']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMachineGunner']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfFortitude']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfFortitude']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfFortitude']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPainTolerance']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPainTolerance']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPainTolerance']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGunslinger']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGunslinger']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGunslinger']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRunAndGun']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRunAndGun']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkRunAndGun']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHardTarget']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHardTarget']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkHardTarget']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMediumArmor']"><level_requirements level="1"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkMediumArmor']"><level_requirements level="2"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkMediumArmor']"><level_requirements level="3"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkMediumArmor']"><level_requirements level="4"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkHeavyArmor']"><level_requirements level="1"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkHeavyArmor']"><level_requirements level="2"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkHeavyArmor']"><level_requirements level="3"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkHeavyArmor']"><level_requirements level="4"><requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1" desc_key="twdReqMetierSoldat"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkGreaseMonkey']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGreaseMonkey']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGreaseMonkey']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSalvageOperations']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSalvageOperations']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSalvageOperations']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1" desc_key="twdReqMetierMecanicien"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAdvancedEngineering']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAdvancedEngineering']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkAdvancedEngineering']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkElectrocutioner']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkElectrocutioner']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkElectrocutioner']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfIntellect']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfIntellect']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfIntellect']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkInfiltrator']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkInfiltrator']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkInfiltrator']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1" desc_key="twdReqMetierIngenieur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMasterChef']"><level_requirements level="1"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkMasterChef']"><level_requirements level="2"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkMasterChef']"><level_requirements level="3"><requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1" desc_key="twdReqMetierFermier"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkLivingOffTheLand']"><level_requirements level="1"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkLivingOffTheLand']"><level_requirements level="2"><requirement name="PlayerLevel" operation="GTE" value="1"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkLivingOffTheLand']"><level_requirements level="3"><requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1" desc_key="twdReqMetierFermier"/></level_requirements></append>
+	<append xpath="/progression/perks/perk[@name='perkSlowMetabolism']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1" desc_key="twdReqMetierFermier"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSlowMetabolism']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1" desc_key="twdReqMetierFermier"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSlowMetabolism']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1" desc_key="twdReqMetierFermier"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPummelPete']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPummelPete']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkPummelPete']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSkullCrusher']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSkullCrusher']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkSkullCrusher']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGrandSlam']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGrandSlam']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkGrandSlam']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfStrength']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfStrength']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkFlurryOfStrength']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMiner69r']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMiner69r']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMiner69r']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMotherLode']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMotherLode']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkMotherLode']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJunkMiner']/level_requirements[@level='3']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJunkMiner']/level_requirements[@level='4']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+	<append xpath="/progression/perks/perk[@name='perkJunkMiner']/level_requirements[@level='5']"><requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1" desc_key="twdReqMetierBatisseur"/></append>
+</configs>

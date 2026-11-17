@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<append xpath="/buffs">
+		<!-- Indicateur HUD « Zone PvP » : ajouté / retiré par le serveur (TWD_Zones) à l'entrée / la sortie d'une zone PvP. Aucun effet. -->
+		<buff name="buffTWDZonePvP" name_key="buffTWDZonePvPName" description_key="buffTWDZonePvPDesc" icon="ui_game_symbol_skull" icon_color="230,50,40">
+			<stack_type value="ignore"/>
+			<duration value="0"/>
+		</buff>
+	</append>
+</configs>

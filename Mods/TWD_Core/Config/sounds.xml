@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-GunNoise.ps1 (bruit x2, chaleur x3) - ne pas modifier a la main. -->
+<configs>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_pistol_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_pistol_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_smg_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_smg_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_shotgun_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_shotgun_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_rifle_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pipe_rifle_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='lever_action_rifle_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='lever_action_rifle_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='Pistol_Fire']/Noise/@noise">104</set>
+	<set xpath="/Sounds/SoundDataNode[@name='Pistol_Fire']/Noise/@heat_map_strength">1.95</set>
+	<set xpath="/Sounds/SoundDataNode[@name='desertvulture_fire']/Noise/@noise">104</set>
+	<set xpath="/Sounds/SoundDataNode[@name='desertvulture_fire']/Noise/@heat_map_strength">1.95</set>
+	<set xpath="/Sounds/SoundDataNode[@name='smg_fire']/Noise/@noise">108</set>
+	<set xpath="/Sounds/SoundDataNode[@name='smg_fire']/Noise/@heat_map_strength">1.95</set>
+	<set xpath="/Sounds/SoundDataNode[@name='44magnum_fire']/Noise/@noise">124</set>
+	<set xpath="/Sounds/SoundDataNode[@name='44magnum_fire']/Noise/@heat_map_strength">2.25</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pump_shotgun_fire']/Noise/@noise">162</set>
+	<set xpath="/Sounds/SoundDataNode[@name='pump_shotgun_fire']/Noise/@heat_map_strength">3</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sawed_off_shotgun_fire']/Noise/@noise">400</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sawed_off_shotgun_fire']/Noise/@heat_map_strength">0.9</set>
+	<set xpath="/Sounds/SoundDataNode[@name='shotgundb_fire']/Noise/@noise">162</set>
+	<set xpath="/Sounds/SoundDataNode[@name='shotgundb_fire']/Noise/@heat_map_strength">3</set>
+	<set xpath="/Sounds/SoundDataNode[@name='autoshotgun_fire']/Noise/@noise">162</set>
+	<set xpath="/Sounds/SoundDataNode[@name='autoshotgun_fire']/Noise/@heat_map_strength">3</set>
+	<set xpath="/Sounds/SoundDataNode[@name='blunderbuss_fire']/Noise/@noise">162</set>
+	<set xpath="/Sounds/SoundDataNode[@name='blunderbuss_fire']/Noise/@heat_map_strength">3</set>
+	<set xpath="/Sounds/SoundDataNode[@name='hunting_rifle_fire']/Noise/@noise">216</set>
+	<set xpath="/Sounds/SoundDataNode[@name='hunting_rifle_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='tacticalar_fire']/Noise/@noise">216</set>
+	<set xpath="/Sounds/SoundDataNode[@name='tacticalar_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sniperrifle_fire']/Noise/@noise">216</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sniperrifle_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sharpshooter_fire']/Noise/@noise">216</set>
+	<set xpath="/Sounds/SoundDataNode[@name='sharpshooter_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='ak47_fire']/Noise/@noise">216</set>
+	<set xpath="/Sounds/SoundDataNode[@name='ak47_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='m60_fire']/Noise/@noise">108</set>
+	<set xpath="/Sounds/SoundDataNode[@name='m60_fire']/Noise/@heat_map_strength">2.7</set>
+	<set xpath="/Sounds/SoundDataNode[@name='m136_fire']/Noise/@noise">200</set>
+	<set xpath="/Sounds/SoundDataNode[@name='m136_fire']/Noise/@heat_map_strength">0.6</set>
+	<set xpath="/Sounds/SoundDataNode[@name='turret_fire']/Noise/@noise">108</set>
+	<set xpath="/Sounds/SoundDataNode[@name='turret_fire']/Noise/@heat_map_strength">1.95</set>
+	<set xpath="/Sounds/SoundDataNode[@name='junkturret_fire']/Noise/@noise">70</set>
+	<set xpath="/Sounds/SoundDataNode[@name='junkturret_fire']/Noise/@heat_map_strength">0.75</set>
+
+	<!-- BRUIT DES MOTEURS : utilisé par le mod C# TWD_Vehicles (AIDirector.NotifyNoise toutes les 2 s
+	     pour chaque véhicule à moteur avec un conducteur). Jamais joué comme son : seul le bruit compte.
+	     noise = attire les rôdeurs proches ; heat_map = attire les hordes. -->
+	<append xpath="/Sounds">
+		<SoundDataNode name="twd_vehicle_engine"> <AudioSource name="@:Sounds/Prefabs/AudioSource_Vehicle.prefab"/>
+			<Noise ID="4" noise="45" time="3" heat_map_strength="0.15" heat_map_time="120"/>
+			<AudioClip ClipName="@:Sounds/Vehicles/Minibike/minibike_idle_lp_1.wav"/>
+			<LocalCrouchVolumeScale value="1.0"/> <CrouchNoiseScale value="1"/> <NoiseScale value="1"/> <MaxVoices value="1"/> <MaxRepeatRate value="0.5"/>
+		</SoundDataNode>
+	</append></configs>
+

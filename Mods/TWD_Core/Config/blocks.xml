@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- PAS DE MONNAIE : démonter une caisse enregistreuse, un distributeur ou un coffre ne donne plus de Dukes -->
+	<remove xpath="/blocks/block/drop[@name='casinoCoin']"/>
+
+	<!-- ESSENCE RARE : siphonner une épave donne 15-60 au lieu de 50-200 -->
+	<set xpath="/blocks/block/drop[@event='Harvest' and @name='ammoGasCan' and @count='50,200']/@count">15,60</set>
+</configs>

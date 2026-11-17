@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<append xpath="/recipes">
+		<!-- Garrot (tissu + bâton) et lame de fortune (ferraille). Fabricable dans le sac, sans établi. -->
+		<recipe name="medicalTWDAmputationKit" count="1" craft_time="10">
+			<ingredient name="resourceCloth" count="4"/>
+			<ingredient name="resourceWood" count="1"/>
+			<ingredient name="resourceScrapIron" count="3"/>
+		</recipe>
+	</append>
+
+	<!-- PAS DE MONNAIE : la "sauce de grand-père" ne demande plus de Dukes -->
+	<remove xpath="/recipes/recipe[@name='drinkJarGrandpasAwesomeSauce']/ingredient[@name='casinoCoin']"/>
+
+	<!-- PAS D'HELICOPTERE : le gyrocoptère et ses pièces ne se fabriquent plus -->
+	<remove xpath="/recipes/recipe[@name='vehicleGyrocopterPlaceable' or @name='vehicleGyroCopterChassis' or @name='vehicleGyroCopterAccessories']"/>
+</configs>

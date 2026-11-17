@@ -1,0 +1,21 @@
+# --- Secrets : ne JAMAIS envoyer ---
+.env
+*.env
+!.env.example
+
+# --- Bot Discord : environnement Python, état local, journaux ---
+discord-bot/.venv/
+discord-bot/state.json
+discord-bot/*.log
+discord-bot/inspect_*.txt
+discord-bot/*_report.txt
+__pycache__/
+
+# --- Outils et sorties générées (se reconstruisent) ---
+steamcmd/
+dist/
+*.zip
+
+# --- Divers ---
+Thumbs.db
+desktop.ini

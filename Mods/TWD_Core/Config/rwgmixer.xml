@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- =====================================================================
+	     SANS MARCHANDS : aucun avant-poste de marchand dans les cartes générées (RWG).
+	     Attention : la carte fixe Navezgane contient ses propres marchands, utiliser une carte RWG.
+	     ===================================================================== -->
+	<set xpath="/rwgmixer/township/property[@name='spawn_trader']/@value">false</set>
+	<append xpath="/rwgmixer/township[not(property[@name='spawn_trader'])]">
+		<property name="spawn_trader" value="false"/>
+	</append>
+	<!-- Les "portes d'entrée" (gateway) des villes accueillent un avant-poste de marchand : désactivées -->
+	<set xpath="/rwgmixer/township/property[@name='spawn_gateway']/@value">false</set>
+	<append xpath="/rwgmixer/township[not(property[@name='spawn_gateway'])]">
+		<property name="spawn_gateway" value="false"/>
+	</append>
+	<set xpath="/rwgmixer/prefab_spawn_adjust[starts-with(@partial_name,'trader_')]/@min_count">0</set>
+	<set xpath="/rwgmixer/prefab_spawn_adjust[starts-with(@partial_name,'trader_')]/@max_count">0</set>
+
+	<!-- =====================================================================
+	     CARTE "GEORGIE"
+	     La proportion des biomes se choisit dans le générateur du jeu client
+	     (forêt majoritaire). Ici on adapte ce qui est généré DANS ces biomes.
+	     ===================================================================== -->
+
+	<!-- Les villes peuvent apparaître en forêt (vanilla : désert/neige/wasteland uniquement).
+	     Sans ça, une carte 100 % forêt n'aurait que des hameaux. -->
+	<set xpath="/rwgmixer/township[@name='countrytown' or @name='town' or @name='city']/property[@name='biomes']/@value">forest,burntforest,desert,snow</set>
+	<!-- "Atlanta" : la très grande ville, en forêt ou en wasteland -->
+	<set xpath="/rwgmixer/township[@name='citybig']/property[@name='biomes']/@value">forest,burntforest,wasteland</set>
+
+	<!-- Pas de paysage post-apocalyptique nucléaire : ni cratères, ni canyons, ni ville western -->
+	<set xpath="/rwgmixer/world/property[@class='craters']/property[@name='count']/@value">0, 0, 0</set>
+	<set xpath="/rwgmixer/world/property[@class='canyons']/property[@name='count']/@value">0, 0, 0</set>
+	<set xpath="/rwgmixer/world/property[@class='oldwest']/property[@name='count']/@value">0, 0, 0</set>
+
+	<!-- Cartes 7000-10000 m (notre 8192) : valeurs "Few, Default, Many" du générateur.
+	     1 grande ville (Atlanta), 2-4 villes, beaucoup de villages, de fermes et d'arrêts de bord de route. -->
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='citybig']/property[@name='count']/@value">1, 1, 2</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='city']/property[@name='count']/@value">2, 3, 4</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='town']/property[@name='count']/@value">2, 3, 5</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='countrytown']/property[@name='count']/@value">3, 5, 7</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='forest_countrytown']/property[@name='count']/@value">4, 6, 9</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='roadside']/property[@name='count']/@value">12, 18, 24</set>
+	<set xpath="/rwgmixer/world[@name='medium']/property[@class='forest_wilderness']/property[@name='count']/@value">70, 130, 190</set>
+
+	<!-- Lieux emblématiques garantis -->
+	<append xpath="/rwgmixer">
+		<!-- La prison (saisons 3-4) : au moins une, en forêt -->
+		<prefab_spawn_adjust partial_name="prison_01" biomeTags="forest" bias="20" min_count="1" max_count="1"/>
+		<prefab_spawn_adjust partial_name="prison_02" biomeTags="forest" bias="20" min_count="1" max_count="1"/>
+		<!-- L'hôpital (Grady Memorial) -->
+		<prefab_spawn_adjust partial_name="hospital_01" bias="20" min_count="1" max_count="2"/>
+		<!-- Base militaire (Fort Benning / le CDC) -->
+		<prefab_spawn_adjust partial_name="base_military_01" bias="20" min_count="1" max_count="1"/>
+		<!-- Fermes (la ferme de Hershel) : plus fréquentes -->
+		<prefab_spawn_adjust partial_name="farm_" biomeTags="forest,burntforest" bias="4"/>
+	</append>
+
+	<!-- Cartes 10000 m et plus : NOTRE CARTE (10240, décision du 17/11/2026).
+	     Atlanta : UNE seule très grande ville, environ 2,5 fois la taille maximale du jeu (28-40 cases de rues de 150 m).
+	     Villes variées : villes, bourgs, villages de campagne, villages de forêt et villages "brûlés" (autres quartiers).
+	     Entre les villes : beaucoup de lieux isolés et d'arrêts de bord de route. -->
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='citybig']/property[@name='count']/@value">1, 1, 1</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='citybig']/property[@name='tiles']/@value">90, 110</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='city']/property[@name='count']/@value">2, 3, 4</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='town']/property[@name='count']/@value">3, 4, 5</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='countrytown']/property[@name='count']/@value">3, 4, 6</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='forest_countrytown']/property[@name='count']/@value">4, 6, 8</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_countrytown']/property[@name='count']/@value">2, 3, 4</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='bforest_town']/property[@name='count']/@value">1, 2, 2</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='roadside']/property[@name='count']/@value">20, 30, 40</set>
+	<set xpath="/rwgmixer/world[@name='large']/property[@class='forest_wilderness']/property[@name='count']/@value">150, 280, 400</set>
+	<!-- Villages "brûlés" autorisés en forêt : autres quartiers (ruraux), pour varier l'architecture -->
+	<set xpath="/rwgmixer/township[@name='bforest_countrytown' or @name='bforest_town']/property[@name='biomes']/@value">forest,burntforest</set>
+</configs>

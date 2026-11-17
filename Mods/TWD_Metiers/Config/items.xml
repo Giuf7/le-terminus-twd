@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Metiers.ps1 - ne pas modifier a la main. -->
+<configs>
+	<insertBefore xpath="/items/item[@name='harvestingToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingHarvestingTools" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusBatisseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_harvestingToolsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='harvestingToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingHarvestingTools" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='repairToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRepairTools" operation="GTE" value="25"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusMecanicien"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_repairToolsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='repairToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRepairTools" operation="LT" value="25"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='salvageToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSalvageTools" operation="GTE" value="25"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusMecanicien"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_salvageToolsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='salvageToolsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSalvageTools" operation="LT" value="25"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='knucklesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingKnuckles" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_knucklesSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='knucklesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingKnuckles" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='bladesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingBlades" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusChasseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_bladesSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='bladesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingBlades" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='clubsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingClubs" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusBatisseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_clubsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='clubsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingClubs" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='sledgehammersSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSledgehammers" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusBatisseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_sledgehammersSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='sledgehammersSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSledgehammers" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='spearsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSpears" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusChasseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_spearsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='spearsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSpears" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='bowsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingBows" operation="GTE" value="4"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusChasseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_bowsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='bowsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierChasseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingBows" operation="LT" value="4"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='handgunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingHandguns" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_handgunsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='handgunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingHandguns" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='shotgunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingShotguns" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_shotgunsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='shotgunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingShotguns" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='riflesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRifles" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_riflesSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='riflesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRifles" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='machineGunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingMachineGuns" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_machineGunsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='machineGunsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingMachineGuns" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='explosivesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingExplosives" operation="GTE" value="11"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusIngenieur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_explosivesSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='explosivesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingExplosives" operation="LT" value="11"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='roboticsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRobotics" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusIngenieur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_roboticsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='roboticsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingRobotics" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='armorSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingArmor" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusSoldat"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_armorSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='armorSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierSoldat" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingArmor" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='medicalSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingMedical" operation="GTE" value="19"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusMedecin"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_medicalSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='medicalSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMedecin" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingMedical" operation="LT" value="19"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='foodSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingFood" operation="GTE" value="10"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusFermier"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_foodSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='foodSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingFood" operation="LT" value="10"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='seedSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSeeds" operation="GTE" value="11"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusFermier"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_seedSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='seedSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierFermier" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingSeeds" operation="LT" value="11"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='electricianSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingElectrician" operation="GTE" value="44"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusIngenieur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_electricianSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='electricianSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingElectrician" operation="LT" value="44"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='trapsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingTraps" operation="GTE" value="49"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusIngenieur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_trapsSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='trapsSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierIngenieur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingTraps" operation="LT" value="49"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='workstationSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingWorkstations" operation="GTE" value="15"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusBatisseur"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_workstationSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='workstationSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierBatisseur" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingWorkstations" operation="LT" value="15"/>
+		</requirement_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='vehiclesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]">
+		<effect_group tiered="false">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="Equals" value="0"/>
+			<requirement name="ProgressionLevel" progression_name="craftingVehicles" operation="GTE" value="19"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ShowToolbeltMessage" message_key="twdMagRefusMecanicien"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="CallGameEvent" event="twd_refund_vehiclesSkillMagazine"/>
+		</effect_group>
+	</insertBefore>
+	<insertBefore xpath="/items/item[@name='vehiclesSkillMagazine']/effect_group[triggered_effect[@action='AddProgressionLevel']]/triggered_effect[1]">
+		<requirement_group op="or">
+			<requirement name="ProgressionLevel" progression_name="perkTWDMetierMecanicien" operation="GTE" value="1"/>
+			<requirement name="ProgressionLevel" progression_name="craftingVehicles" operation="LT" value="19"/>
+		</requirement_group>
+	</insertBefore>
+
+	<!-- KIT CHIRURGICAL : réservé au Médecin. Amputation à -15 PV, hémorragie courte. -->
+	<append xpath="/items">
+		<item name="medicalTWDSurgicalKit">
+			<property name="Tags" value="medical,medicalSkill"/>
+			<property name="DisplayType" value="medical"/>
+			<property name="HoldType" value="64"/>
+			<property name="Meshfile" value="@:Other/Items/Health/bandage.FBX"/>
+			<property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+			<property name="Material" value="Mcloth"/>
+			<property name="Stacknumber" value="3"/>
+			<property name="Weight" value="20"/>
+			<property name="EconomicValue" value="150"/>
+			<property name="Group" value="Science,Medical,TCMedical"/>
+			<property name="DescriptionKey" value="medicalTWDSurgicalKitDesc"/>
+			<property name="UnlockedBy" value="perkTWDMetierMedecin"/>
+			<property name="SoundPickup" value="bandage_grab"/>
+			<property name="SoundPlace" value="bandage_place"/>
+			<property name="CustomIcon" value="medicalFirstAidKit"/>
+			<property name="CustomIconTint" value="200,60,60"/>
+			<property class="Action0">
+				<property name="Class" value="Eat"/>
+				<property name="Delay" value="5"/>
+				<property name="Sound_start" value="player_bandage"/>
+			</property>
+			<property class="Action1">
+				<property name="Class" value="UseOther"/>
+				<property name="Delay" value="5"/>
+				<property name="Sound_start" value="player_bandage"/>
+			</property>
+			<effect_group tiered="false">
+				<triggered_effect trigger="onSelfPrimaryActionEnd" action="AddBuff" buff="buffTWDSurgeryAttempt"/>
+				<triggered_effect trigger="onSelfSecondaryActionEnd" action="AddBuff" target="other" buff="buffTWDSurgeryAttempt"/>
+			</effect_group>
+		</item>
+	</append>
+</configs>

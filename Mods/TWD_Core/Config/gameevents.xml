@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<append xpath="/gameevents">
+		<!-- Kit réduit donné à un survivant qui réapparaît après une mort -->
+		<action_sequence name="twd_respawn_kit">
+			<property name="allow_user_trigger" value="false"/>
+			<property name="action_type" value="Game"/>
+			<action class="AddItems">
+				<property name="added_items" value="meleeWpnBladeT1HuntingKnife,medicalBandage"/>
+				<property name="added_item_counts" value="1,1"/>
+			</action>
+		</action_sequence>
+		<!-- Le rôdeur qui se relève sur le corps d'un joueur est créé par le serveur (TWD_Zones, Death.cs). -->
+	</append>
+
+	<!-- MORT DEFINITIVE (option Sandbox "Death Penalty = Permanent Death") :
+	     le survivant repart de zéro, mais la base du groupe reste protégée. -->
+	<set xpath="/gameevents/action_sequence[@name='game_on_death_permanent']/action[@class='ResetPlayerData']/property[@name='remove_landclaims']/@value">false</set>
+	<!-- Vanilla redonne le kit de départ COMPLET à la réapparition en mort définitive.
+	     TWD : seul le kit réduit (twd_respawn_kit) est donné après une mort. -->
+	<remove xpath="/gameevents/action_sequence[@name='game_on_respawn_permanent']/action[@class='AddStartingItems']"/>
+</configs>

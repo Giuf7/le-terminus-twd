@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- PAS DE MONNAIE : plus aucun Duke dans le loot. Le commerce se fait par troc entre joueurs.
+	     Les groupes de récompense de quêtes (groupQuestcasinoCoin*) sont laissés tels quels :
+	     ils ne contiennent que des Dukes (les vider casserait le groupe) et les quêtes sont désactivées. -->
+	<remove xpath="/lootcontainers//item[@name='casinoCoin' and not(starts-with(../@name,'groupQuestcasinoCoin'))]"/>
+
+	<!-- ESSENCE RARE : environ 3 fois moins de bidons dans le loot -->
+	<set xpath="/lootcontainers/lootgroup[@name='groupAutomotive']/item[@name='ammoGasCan']/@count">5,30</set>
+	<set xpath="/lootcontainers/lootgroup[@name='groupPassNGas02']/item[@name='ammoGasCan']/@count">5,20</set>
+	<set xpath="/lootcontainers/*[@name='gasPump' or @name='gasBarrel']/item[@name='ammoGasCan']/@count">5,20</set>
+	<set xpath="/lootcontainers/*[@name='gasBarrelLarge']/item[@name='ammoGasCan']/@count">20,40</set>
+
+	<!-- PAS D'HELICOPTERE : plus de pièces de gyrocoptère dans le loot -->
+	<remove xpath="/lootcontainers//item[@group='gyroCopterParts']"/>
+</configs>

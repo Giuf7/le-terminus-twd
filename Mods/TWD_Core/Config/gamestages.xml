@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Gamestages.ps1 (TargetStage=100) - ne pas modifier a la main. -->
+<!-- Difficulte fixe des le jour 1 : un seul palier par spawner, valable pour tous les gamestages. -->
+<configs>
+	<!-- SleeperTestChamberGSList : palier 1 conservé sur 3 -->
+	<remove xpath="/gamestages/spawner[@name='SleeperTestChamberGSList']/gamestage[@stage!='1']"/>
+	<set xpath="/gamestages/spawner[@name='SleeperTestChamberGSList']/gamestage/@stage">0</set>
+	<!-- WanderingHorde : palier 50 conservé sur 50 -->
+	<remove xpath="/gamestages/spawner[@name='WanderingHorde']/gamestage[@stage!='50']"/>
+	<set xpath="/gamestages/spawner[@name='WanderingHorde']/gamestage/@stage">0</set>
+	<!-- ZombieBikerBarHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieBikerBarHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieBikerBarHorde']/gamestage/@stage">0</set>
+	<!-- ZombieNightClubHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieNightClubHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieNightClubHorde']/gamestage/@stage">0</set>
+	<!-- ZombieSpecialInfectedHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieSpecialInfectedHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieSpecialInfectedHorde']/gamestage/@stage">0</set>
+	<!-- ZombieGhostTownHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieGhostTownHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieGhostTownHorde']/gamestage/@stage">0</set>
+	<!-- HospitalHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='HospitalHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='HospitalHorde']/gamestage/@stage">0</set>
+	<!-- PrisonHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='PrisonHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='PrisonHorde']/gamestage/@stage">0</set>
+	<!-- LabWorkerHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='LabWorkerHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='LabWorkerHorde']/gamestage/@stage">0</set>
+	<!-- ZombieSpiderOnlyHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieSpiderOnlyHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieSpiderOnlyHorde']/gamestage/@stage">0</set>
+	<!-- ZombieSoldierHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieSoldierHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieSoldierHorde']/gamestage/@stage">0</set>
+	<!-- ZombieHazMatOnlyHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieHazMatOnlyHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieHazMatOnlyHorde']/gamestage/@stage">0</set>
+	<!-- ZombieUtilityWorkerHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieUtilityWorkerHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieUtilityWorkerHorde']/gamestage/@stage">0</set>
+	<!-- ZombieJanitorOnlyHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieJanitorOnlyHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieJanitorOnlyHorde']/gamestage/@stage">0</set>
+	<!-- ZombieLumberjackHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieLumberjackHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieLumberjackHorde']/gamestage/@stage">0</set>
+	<!-- ZombieBusinessManHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieBusinessManHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieBusinessManHorde']/gamestage/@stage">0</set>
+	<!-- ZombieFatCopHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieFatCopHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieFatCopHorde']/gamestage/@stage">0</set>
+	<!-- ZombieBurntHorde : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieBurntHorde']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieBurntHorde']/gamestage/@stage">0</set>
+	<!-- zombieUtilityWorkerFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieUtilityWorkerFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieUtilityWorkerFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieBusinessManFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieBusinessManFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieBusinessManFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieLabFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieLabFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieLabFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieNurseFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieNurseFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieNurseFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieSoldierFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieSoldierFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieSoldierFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieInmateFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieInmateFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieInmateFeralGroup']/gamestage/@stage">0</set>
+	<!-- zombieFatHawaiianFeralGroup : palier 100 conservé sur 6 -->
+	<remove xpath="/gamestages/spawner[@name='zombieFatHawaiianFeralGroup']/gamestage[@stage!='100']"/>
+	<set xpath="/gamestages/spawner[@name='zombieFatHawaiianFeralGroup']/gamestage/@stage">0</set>
+	<!-- ZombieBadassGSHorde : palier 95 conservé sur 38 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieBadassGSHorde']/gamestage[@stage!='95']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieBadassGSHorde']/gamestage/@stage">0</set>
+	<!-- ZombieBadassOnlyHorde : palier 95 conservé sur 38 -->
+	<remove xpath="/gamestages/spawner[@name='ZombieBadassOnlyHorde']/gamestage[@stage!='95']"/>
+	<set xpath="/gamestages/spawner[@name='ZombieBadassOnlyHorde']/gamestage/@stage">0</set>
+	<!-- SleeperGSList : palier 96 conservé sur 322 -->
+	<remove xpath="/gamestages/spawner[@name='SleeperGSList']/gamestage[@stage!='96']"/>
+	<set xpath="/gamestages/spawner[@name='SleeperGSList']/gamestage/@stage">0</set>
+	<!-- ScoutGSList : palier 96 conservé sur 322 -->
+	<remove xpath="/gamestages/spawner[@name='ScoutGSList']/gamestage[@stage!='96']"/>
+	<set xpath="/gamestages/spawner[@name='ScoutGSList']/gamestage/@stage">0</set>
+	<!-- BloodMoonHorde : palier 97 conservé sur 322 -->
+	<remove xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage!='97']"/>
+	<set xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage/@stage">0</set>
+	<!-- ZombiePoliceCarHorde : palier 95 conservé sur 38 -->
+	<remove xpath="/gamestages/spawner[@name='ZombiePoliceCarHorde']/gamestage[@stage!='95']"/>
+	<set xpath="/gamestages/spawner[@name='ZombiePoliceCarHorde']/gamestage/@stage">0</set>
+	<!-- defenseGSList : palier 96 conservé sur 322 -->
+	<remove xpath="/gamestages/spawner[@name='defenseGSList']/gamestage[@stage!='96']"/>
+	<set xpath="/gamestages/spawner[@name='defenseGSList']/gamestage/@stage">0</set>
+</configs>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- =====================================================================
+	     L'ARBALETE, ARME REINE (façon Daryl)
+	     Silencieuse, carreaux récupérables et fabricables : l'arme idéale.
+	     Vanilla : arbalète au niveau 21 de "Fabrication d'arcs", composite au 56.
+	     TWD : arbalète au niveau 5, composite au 30.
+	     ===================================================================== -->
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/display_entry[@item='gunBowT1IronCrossbow']/@unlock_level">5,7,9,12,15,18</set>
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/effect_group/passive_effect[@name='RecipeTagUnlocked' and @tags='gunBowT1IronCrossbow']/@level">5,100</set>
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/effect_group/passive_effect[@name='CraftingTier' and @tags='gunBowT1IronCrossbow']/@level">7,9,12,15,18,75</set>
+
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/display_entry[@item='gunBowT3CompoundCrossbow']/@unlock_level">30,34,38,42,46,50</set>
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/effect_group/passive_effect[@name='RecipeTagUnlocked' and @tags='gunBowT3CompoundCrossbow']/@level">30,100</set>
+	<set xpath="/progression/crafting_skills/crafting_skill[@name='craftingBows']/effect_group/passive_effect[@name='CraftingTier' and @tags='gunBowT3CompoundCrossbow']/@level">34,38,42,46,50</set>
+
+	<!-- PAS D'HELICOPTERE : le gyrocoptère disparaît de la progression "Véhicules" -->
+	<remove xpath="/progression/crafting_skills/crafting_skill[@name='craftingVehicles']/display_entry[@icon='vehicleGyrocopterPlaceable']"/>
+
+	<!-- =====================================================================
+	     PAS DE SUPER-POUVOIRS
+	     Compétences retirées : leurs effets sont supprimés et elles ne peuvent plus être achetées
+	     (niveau d'attribut requis = 99, impossible). On garde la compétence elle-même dans le
+	     fichier car d'autres fichiers du jeu y font référence.
+	     - Les 5 Maîtrises : immunité à l'infection (incompatible avec la morsure mortelle),
+	       esquive automatique du premier coup, +100 PV max, saignement stoppé en tuant, etc.
+	     - Siphoning Strikes : vol de vie à chaque coup.
+	     - Turrets : armes robotisées.
+	     ===================================================================== -->
+	<remove xpath="/progression/perks/perk[@name='perkPerceptionMastery' or @name='perkStrengthMastery' or @name='perkFortitudeMastery' or @name='perkAgilityMastery' or @name='perkIntellectMastery' or @name='perkSiphoningStrikes' or @name='perkTurrets']/effect_group"/>
+	<set xpath="/progression/perks/perk[@name='perkPerceptionMastery' or @name='perkStrengthMastery' or @name='perkFortitudeMastery' or @name='perkAgilityMastery' or @name='perkIntellectMastery' or @name='perkSiphoningStrikes' or @name='perkTurrets']/level_requirements/requirement/@value">99</set>
+</configs>

@@ -1,0 +1,6 @@
+Key,File,Type,UsedInMainMenu,NoTranslate,english,french
+buffTWDZonePvPName,buffs,Buff,,,PvP Zone,Zone PvP
+buffTWDZonePvPDesc,buffs,Buff,,,"You are in a PvP zone: other survivors can hurt and kill you here.","Vous êtes dans une zone PvP : les autres survivants peuvent vous blesser et vous tuer ici."
+buffInfection01UntreatedName,buffs,Buff,,,"Bite - stage 1 (amputate!)","Morsure - stade 1 (amputez !)"
+buffInfection02UntreatedName,buffs,Buff,,,"Infection - stage 2","Propagation - stade 2"
+buffInfection03UntreatedName,buffs,Buff,,,"Fever - stage 3","Fièvre - stade 3"

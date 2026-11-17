@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICHIER GENERE par tools/Generate-Metiers.ps1 - ne pas modifier a la main. -->
+<configs>
+	<append xpath="/recipes">
+		<!-- Kit chirurgical : Médecin uniquement (débloqué par la compétence de métier) -->
+		<recipe name="medicalTWDSurgicalKit" count="1" craft_time="20" tags="learnable">
+			<ingredient name="medicalBandage" count="2"/>
+			<ingredient name="resourceCloth" count="2"/>
+			<ingredient name="resourceForgedIron" count="2"/>
+			<ingredient name="resourceWood" count="1"/>
+		</recipe>
+	</append>
+</configs>

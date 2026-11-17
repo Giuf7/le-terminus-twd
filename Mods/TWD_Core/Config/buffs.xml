@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	<!-- =====================================================================
+	     MORSURE MORTELLE
+	     Vanilla : l'infection guérit naturellement et avec les antibiotiques.
+	     TWD : l'infection progresse toujours jusqu'à la mort. Les remèdes ne
+	     font que la RALENTIR. Seule l'amputation au stade 1 sauve le joueur.
+	     ===================================================================== -->
+
+	<!-- Durée totale de l'infection : 25200 s (7 h réelles) -> 5400 s (90 min réelles,
+	     soit ~1,5 jour de jeu avec des journées de 60 min). Stade 1 = 14 % = ~12,5 min
+	     réelles (~5 h de jeu) : c'est la fenêtre pour amputer. -->
+	<set xpath="//triggered_effect[@cvar='$infectionMaxDuration' and @value='25200']/@value">5400</set>
+
+	<!-- Plus aucune guérison naturelle de l'infection -->
+	<remove xpath="//buff[@name='buffInfectionMain']/effect_group[@name='main loop']/triggered_effect[@cvar='.dummy']"/>
+	<remove xpath="//buff[@name='buffInfectionMain']/effect_group[@name='main loop']/triggered_effect[@cvar='infectionCounter' and @operation='subtract']"/>
+
+	<!-- Les remèdes ralentissent la progression de 60 % au lieu de la faire reculer -->
+	<insertBefore xpath="//buff[@name='buffInfectionMain']/effect_group[@name='main loop']/triggered_effect[@value='@_InfectionCureRate']">
+		<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar=".twdCureSlow" operation="set" value="@_InfectionRate"/>
+		<triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar=".twdCureSlow" operation="multiply" value="-0.6"/>
+	</insertBefore>
+	<set xpath="//buff[@name='buffInfectionMain']/effect_group[@name='main loop']/triggered_effect[@value='@_InfectionCureRate']/@value">@.twdCureSlow</set>
+
+	<!-- =====================================================================
+	     SIGNES PERCEPTIBLES PAR LES AUTRES JOUEURS
+	     Stade 1 : rien (la morsure peut être cachée).
+	     Stade 2 : gémissements de malade de temps en temps.
+	     Stade 3 : gémissements fréquents + vomissements (qui font du bruit et
+	               attirent les rôdeurs proches). "player#sick" = voix homme/femme.
+	     Sons 3D (pas play_in_head) : audibles par les joueurs autour.
+	     ===================================================================== -->
+	<append xpath="//buff[@name='buffInfection02Untreated' or @name='buffInfection02GetBetter']">
+		<effect_group name="twd signes stade 2">
+			<triggered_effect trigger="onSelfBuffUpdate" action="PlaySound" sound="player#sick">
+				<requirement name="RandomRoll" seed_type="Random" min_max="0,100" operation="LTE" value="2"/>
+			</triggered_effect>
+		</effect_group>
+	</append>
+	<append xpath="//buff[@name='buffInfection03Untreated' or @name='buffInfection03GetBetter']">
+		<effect_group name="twd signes stade 3">
+			<triggered_effect trigger="onSelfBuffUpdate" action="PlaySound" sound="player#sick">
+				<requirement name="RandomRoll" seed_type="Random" min_max="0,100" operation="LTE" value="6"/>
+			</triggered_effect>
+			<triggered_effect trigger="onSelfBuffUpdate" action="PlaySound" sound="player#vomit">
+				<requirement name="RandomRoll" seed_type="Random" min_max="0,100" operation="LTE" value="1.5"/>
+			</triggered_effect>
+		</effect_group>
+	</append>
+
+	<!-- =====================================================================
+	     AMPUTATION
+	     ===================================================================== -->
+	<append xpath="/buffs">
+
+		<!-- Appliqué par l'objet medicalTWDAmputationKit (sur soi ou sur un autre joueur).
+		     L'ordre des effect_group compte : la blessure est évaluée avant le retrait de l'infection. -->
+		<buff name="buffTWDAmputationAttempt" name_key="buffTWDAmputationAttemptName" hidden="true">
+			<stack_type value="ignore"/>
+			<duration value=".1"/>
+
+			<!-- Pas infecté : rien ne se passe, l'objet est quand même consommé -->
+			<effect_group>
+				<requirement name="!HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdAmputationNotInfected"/>
+			</effect_group>
+
+			<!-- Infecté : on coupe, quel que soit le stade -->
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyStats" stat="Health" operation="subtract" value="40"/>
+				<triggered_effect trigger="onSelfBuffStart" action="AddBuff" buff="buffTWDHemorrhage"/>
+				<triggered_effect trigger="onSelfBuffStart" action="AddBuff" buff="buffTWDAmputated"/>
+			</effect_group>
+
+			<!-- Stade 1 : l'infection est stoppée -->
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<requirement name="CVarCompare" cvar="infectionCounter" operation="LT" value="@$infectionStage2Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdAmputationSuccess"/>
+				<triggered_effect trigger="onSelfBuffStart" action="RemoveBuff" buff="buffInfectionMain"/>
+			</effect_group>
+
+			<!-- Trop tard : membre perdu ET infection qui continue -->
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<requirement name="CVarCompare" cvar="infectionCounter" operation="GTE" value="@$infectionStage2Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ShowToolbeltMessage" message_key="twdAmputationTooLate"/>
+			</effect_group>
+		</buff>
+
+		<!-- Hémorragie après amputation : ~36 PV perdus en 90 s, stoppée par un bandage.
+		     Avec les 40 PV perdus à la coupe, amputer un joueur déjà blessé peut le tuer. -->
+		<buff name="buffTWDHemorrhage" name_key="buffTWDHemorrhageName" description_key="buffTWDHemorrhageDesc" icon="ui_game_symbol_critical" icon_color="255,0,0" icon_blink="true">
+			<damage_type value="bloodloss"/>
+			<damage_source value="Internal"/>
+			<stack_type value="replace"/>
+			<duration value="90"/>
+			<display_value value="duration"/>
+			<display_value_format value="time"/>
+			<effect_group>
+				<passive_effect name="HealthChangeOT" operation="base_subtract" value="0.4"/>
+				<passive_effect name="RunSpeed" operation="perc_add" value="-0.3"/>
+				<triggered_effect trigger="onSelfBuffStart" action="PlaySound" sound="buff_bleeding" play_in_head="true"/>
+				<triggered_effect trigger="onSelfBuffRemove" action="StopSound" sound="buff_bleeding" play_in_head="true"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyScreenEffect" effect_name="Blur" intensity=".6" fade="0.5"/>
+				<triggered_effect trigger="onSelfBuffRemove" action="ModifyScreenEffect" effect_name="Blur" intensity="0" fade="1"/>
+				<triggered_effect trigger="onSelfDied" action="RemoveBuff" buff="buffTWDHemorrhage"/>
+			</effect_group>
+		</buff>
+
+		<!-- Malus permanent, jusqu'à la mort du personnage -->
+		<buff name="buffTWDAmputated" name_key="buffTWDAmputatedName" description_key="buffTWDAmputatedDesc" icon="ui_game_symbol_brokenbone" icon_color="180,30,30">
+			<stack_type value="ignore"/>
+			<duration value="0"/>
+			<effect_group>
+				<passive_effect name="WalkSpeed" operation="perc_add" value="-0.15"/>
+				<passive_effect name="RunSpeed" operation="perc_add" value="-0.25"/>
+				<passive_effect name="StaminaChangeOT" operation="perc_add" value="-0.3"/>
+				<passive_effect name="CarryCapacity" operation="perc_add" value="-0.3"/>
+				<passive_effect name="AttacksPerMinute" operation="perc_add" value="-0.2"/>
+				<passive_effect name="SpreadMultiplierAiming" operation="perc_add" value="0.5"/>
+				<triggered_effect trigger="onSelfDied" action="RemoveBuff" buff="buffTWDAmputated"/>
+			</effect_group>
+		</buff>
+
+	</append>
+
+	<!-- =====================================================================
+	     BUFFS DE TEST (admins, console : buff twdtest_stage2 ...)
+	     Font avancer une infection EN COURS (s'infecter d'abord : buff buffInfectionCatch).
+	     ===================================================================== -->
+	<append xpath="/buffs">
+		<buff name="twdtest_stage2" hidden="true">
+			<duration value=".1"/>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="set" value="@$infectionStage2Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="add" value="5"/>
+			</effect_group>
+		</buff>
+		<buff name="twdtest_stage3" hidden="true">
+			<duration value=".1"/>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="set" value="@$infectionStage3Duration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="add" value="5"/>
+			</effect_group>
+		</buff>
+		<!-- Mort par l'infection dans ~30 secondes -->
+		<buff name="twdtest_dying" hidden="true">
+			<duration value=".1"/>
+			<effect_group>
+				<requirement name="HasBuff" buff="buffInfectionMain"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="set" value="@$infectionMaxDuration"/>
+				<triggered_effect trigger="onSelfBuffStart" action="ModifyCVar" cvar="infectionCounter" operation="add" value="-30"/>
+			</effect_group>
+		</buff>
+	</append>
+</configs>

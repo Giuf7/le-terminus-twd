@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<Name value="TWD_UI" />
+	<DisplayName value="TWD Interface" />
+	<Description value="Interface du Terminus : onglet Métiers, indicateurs du HUD (métier, zone PvP, stades d'infection). Envoyé aux joueurs par le serveur." />
+	<Author value="TWD Server" />
+	<Version value="0.1.0" />
+	<Website value="" />
+</xml>

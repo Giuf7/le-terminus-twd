@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Réglages du générateur de carte du serveur dédié (carte "Géorgie").
+     Utilisés UNIQUEMENT quand le serveur génère une nouvelle carte (GameWorld = RWG dans serverconfig).
+     Biomes : poids relatifs (comme les curseurs du jeu). Avec la disposition CenterForest, tout biome
+     non nul occupe le pourtour de la carte : 100 % forêt = carte entièrement forestière.
+     Disposition : CenterForest, CenterWasteland, Circle, Circle2, Line. Quantités : None, Few, Default, Many.
+     traders = false : aucun avant-poste de marchand (ni en ville, ni hors ville). -->
+<worldgen>
+	<forest>100</forest>
+	<burntforest>0</burntforest>
+	<desert>0</desert>
+	<snow>0</snow>
+	<wasteland>0</wasteland>
+	<layout>CenterForest</layout>
+	<towns>Default</towns>
+	<wilderness>Many</wilderness>
+	<rivers>Default</rivers>
+	<lakes>Default</lakes>
+	<craters>None</craters>
+	<traders>false</traders>
+	<!-- Distance minimale entre deux villes (m), mesurée entre leurs rues. 0 = règle du jeu. -->
+	<townspacing>1500</townspacing>
+	<!-- Les prisons ne sont placées qu'en pleine nature, à au moins cette distance (m) de toute ville. 0 = placement du jeu. -->
+	<prisondistance>2000</prisondistance>
+</worldgen>

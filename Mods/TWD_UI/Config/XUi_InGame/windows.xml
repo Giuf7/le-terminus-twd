@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Interface en jeu du Terminus (envoyée aux joueurs à la connexion).
+     Règle : petites modifications ciblées, testées une par une (une erreur d'interface peut faire planter le jeu). -->
+<configs>
+	<!-- Fenêtre des compétences : 9 onglets au lieu de 8 (ajout de l'onglet « Métiers », TWD_Metiers).
+	     La recherche est décalée à droite et raccourcie pour laisser la place au 9e onglet. -->
+	<set xpath="/windows/window[@name='windowSkillList']//grid[@name='categories']/@cols">9</set>
+	<set xpath="/windows/window[@name='windowSkillList']//rect[@name='categoryHeader']/rect[@pos='3,-3']/@width">430</set>
+	<set xpath="/windows/window[@name='windowSkillList']//rect[@name='categoryHeader']/rect[@pos='394,0']/@pos">418,0</set>
+	<set xpath="/windows/window[@name='windowSkillList']//textfield[@name='searchInput']/@width">98</set>
+
+	<!-- Pas de quêtes au Terminus (aucun marchand) : onglet « Quêtes » masqué dans la barre du haut.
+	     Essai du 17/11/2026 : le transformer en onglet « Métier » (nouveau groupe de fenêtres avec XUiC_SkillWindowGroup)
+	     -> ArgumentOutOfRangeException et fenêtres mal placées. Un vrai onglet Métier demandera une DLL côté client. -->
+	<setattribute xpath="/windows/window[@name='windowPagingHeader']/iconbutton[@name='Quests']" name="visible">false</setattribute>
+</configs>

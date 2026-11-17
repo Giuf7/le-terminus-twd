@@ -1,0 +1,30 @@
+Key,File,Type,UsedInMainMenu,NoTranslate,english,french
+medicalTWDAmputationKit,items,Item,,,Amputation Kit,Kit d'amputation
+medicalTWDAmputationKitDesc,items,Item,,,"A tourniquet and a crude blade. The only way to survive a bite: cut the limb off before the infection spreads (stage 1 only).\nCauses heavy blood loss and a permanent handicap.\nPrimary action: yourself. Secondary action: another player.","Un garrot et une lame de fortune. Le seul moyen de survivre à une morsure : couper le membre avant que l'infection ne se propage (stade 1 uniquement).\nProvoque une forte hémorragie et un handicap permanent.\nAction principale : sur soi. Action secondaire : sur un autre joueur."
+buffTWDAmputationAttemptName,buffs,Buff,,,Amputation,Amputation
+buffTWDHemorrhageName,buffs,Buff,,,Hemorrhage,Hémorragie
+buffTWDHemorrhageDesc,buffs,Buff,,,"You are losing a lot of blood. Use a bandage to stop the bleeding.","Vous perdez beaucoup de sang. Utilisez un bandage pour stopper l'hémorragie."
+buffTWDAmputatedName,buffs,Buff,,,Amputee,Amputé
+buffTWDAmputatedDesc,buffs,Buff,,,"You survived, at a price.\n\nWalk speed -15%\nRun speed -25%\nStamina regeneration -30%\nCarry capacity -30%\nAttack speed -20%\nAiming accuracy reduced","Vous avez survécu, mais à quel prix.\n\nVitesse de marche -15 %\nVitesse de course -25 %\nRégénération d'endurance -30 %\nCapacité de port -30 %\nVitesse d'attaque -20 %\nPrécision réduite"
+twdAmputationNotInfected,buffs,Buff,,,There is no infection to stop.,Il n'y a aucune infection à stopper.
+twdAmputationSuccess,buffs,Buff,,,The limb is gone. The infection has stopped.,Le membre est tranché. L'infection est stoppée.
+twdAmputationTooLate,buffs,Buff,,,Too late... the infection has already spread.,Trop tard... l'infection s'est déjà propagée.
+buffInfection01GetBetterName,buffs,Buff,,,"Bite - stage 1 (slowed)","Morsure - stade 1 (ralentie)"
+buffInfection01GetBetterDesc,buffs,Buff,,,"Medicine only slows the infection down. It cannot be cured.\nAmputation is your only chance, and only at this stage.","Les médicaments ne font que ralentir l'infection. Elle ne se soigne pas.\nL'amputation est votre seule chance, et seulement à ce stade."
+buffInfection02GetBetterName,buffs,Buff,,,"Infection - stage 2 (slowed)","Propagation - stade 2 (ralentie)"
+buffInfection02GetBetterDesc,buffs,Buff,,,"Medicine only slows the infection down. It cannot be cured.\nIt is too late to amputate.\n\nStamina Regeneration -12.5%","Les médicaments ne font que ralentir l'infection. Elle ne se soigne pas.\nIl est trop tard pour amputer.\n\nRégénération d'endurance : -12,5 %"
+buffInfection03GetBetterName,buffs,Buff,,,"Fever - stage 3 (slowed)","Fièvre - stade 3 (ralentie)"
+buffInfection03GetBetterDesc,buffs,Buff,,,"Medicine only slows the infection down. It cannot be cured.\nSay goodbye to your group.\n\nStamina Regeneration -17%\nAll Attributes -1","Les médicaments ne font que ralentir l'infection. Elle ne se soigne pas.\nDites adieu à votre groupe.\n\nRégénération d'endurance -17 %\n-1 à tous les attributs"
+drugAntibioticsDesc,items,Item,,,"Antibiotics slow an infection down. Nothing can cure a walker bite.\n\nCan be crafted in a beaker on the campfire.","Les antibiotiques ralentissent une infection. Rien ne guérit une morsure de rôdeur.\n\nPeuvent être fabriqués dans un bécher sur le feu de camp."
+drugHerbalAntibioticsDesc,items,Item,,,"Herbal antibiotics slow an infection down. Nothing can cure a walker bite.\n\nCan be crafted in a cooking pot on the campfire.","Les antibiotiques naturels ralentissent une infection. Rien ne guérit une morsure de rôdeur.\n\nPeuvent être fabriqués dans une marmite sur le feu de camp."
+foodHoneyDesc,items,Item,,,"Honey gives you a little energy and slightly slows an infection down. It cannot cure it.","Le miel vous donne un peu d'énergie et ralentit légèrement une infection. Il ne la guérit pas."
+buffInfection01UntreatedDesc,buffs,Buff,,,"You have been bitten. The infection will kill you.\nMedicine can only slow it down.\nAmputation is your only chance, and only at this stage.\nGetting hit by walkers will make it worse.","Vous avez été mordu. L'infection va vous tuer.\nLes médicaments ne peuvent que la ralentir.\nL'amputation est votre seule chance, et seulement à ce stade.\nÊtre frappé par des rôdeurs l'aggravera."
+buffInfection02UntreatedDesc,buffs,Buff,,,"The infection is spreading. It is too late to amputate.\nMedicine can only slow it down.\n\nStamina Regeneration -25%","L'infection se propage. Il est trop tard pour amputer.\nLes médicaments ne peuvent que la ralentir.\n\nRégénération d'endurance : -25 %"
+buffInfection03UntreatedDesc,buffs,Buff,,,"The fever is burning you up. You do not have long.\nSay goodbye to your group.\n\nStamina Regeneration -35%\nAll Attributes -1","La fièvre vous consume. Il ne vous reste plus longtemps.\nDites adieu à votre groupe.\n\nRégénération d'endurance -35 %\n-1 à tous les attributs"
+perkPerceptionMasteryDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkStrengthMasteryDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkFortitudeMasteryDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkAgilityMasteryDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkIntellectMasteryDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkSiphoningStrikesDesc,progression,Perk,,,Disabled on this server (TWD: no superpowers).,Désactivée sur ce serveur (TWD : pas de super-pouvoirs).
+perkTurretsDesc,progression,Perk,,,Disabled on this server (TWD: no robotic weapons).,Désactivée sur ce serveur (TWD : pas d'armes robotisées).

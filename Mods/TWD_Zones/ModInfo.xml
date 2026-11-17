@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<Name value="TWD_Zones" />
+	<DisplayName value="TWD Zones" />
+	<Description value="PvE partout, PvP uniquement dans les zones définies (zones.xml). Côté serveur uniquement." />
+	<Author value="TWD Server" />
+	<Version value="0.1.0" />
+	<Website value="" />
+	<SkipWithAntiCheat value="true" />
+</xml>

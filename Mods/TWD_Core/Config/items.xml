@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	<!-- MORSURE (5 % par coup) : déplacée sur le JOUEUR (entityclasses.xml, onOtherAttackedSelf).
+	     Posée depuis l'arme du rôdeur, elle s'exécutait sur la copie serveur du joueur, où l'infection
+	     s'annule aussitôt (_InfectionRate n'y est pas défini) : morsure fantôme, jamais reçue par le joueur (17/11/2026). -->
+
+	<!-- Les bandages stoppent aussi l'hémorragie d'amputation -->
+	<append xpath="/items/item[@name='medicalBandage' or @name='medicalFirstAidBandage' or @name='medicalFirstAidKit']/effect_group[1]">
+		<triggered_effect trigger="onSelfPrimaryActionEnd" action="RemoveBuff" buff="buffTWDHemorrhage"/>
+		<triggered_effect trigger="onSelfSecondaryActionEnd" action="RemoveBuff" target="other" buff="buffTWDHemorrhage"/>
+	</append>
+
+	<!-- =====================================================================
+	     KIT D'AMPUTATION
+	     Clic gauche : sur soi. Clic droit : sur un autre joueur (visé).
+	     ===================================================================== -->
+	<append xpath="/items">
+		<item name="medicalTWDAmputationKit">
+			<property name="Tags" value="medical,medicalSkill"/>
+			<property name="DisplayType" value="medical"/>
+			<property name="HoldType" value="64"/>
+			<property name="Meshfile" value="@:Other/Items/Health/bandage.FBX"/>
+			<property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+			<property name="Material" value="Mcloth"/>
+			<property name="Stacknumber" value="3"/>
+			<property name="Weight" value="20"/>
+			<property name="EconomicValue" value="60"/>
+			<property name="Group" value="Basics,Science,Medical,TCMedical"/>
+			<property name="DescriptionKey" value="medicalTWDAmputationKitDesc"/>
+			<property name="SoundPickup" value="bandage_grab"/>
+			<property name="SoundPlace" value="bandage_place"/>
+			<property name="CustomIcon" value="medicalBandage"/>
+			<property name="CustomIconTint" value="200,60,60"/>
+
+			<property class="Action0">
+				<property name="Class" value="Eat"/>
+				<property name="Delay" value="4"/>
+				<property name="Sound_start" value="player_bandage"/>
+			</property>
+			<property class="Action1">
+				<property name="Class" value="UseOther"/>
+				<property name="Delay" value="4"/>
+				<property name="Sound_start" value="player_bandage"/>
+			</property>
+
+			<effect_group tiered="false">
+				<triggered_effect trigger="onSelfPrimaryActionEnd" action="AddBuff" buff="buffTWDAmputationAttempt"/>
+				<triggered_effect trigger="onSelfSecondaryActionEnd" action="AddBuff" target="other" buff="buffTWDAmputationAttempt"/>
+			</effect_group>
+		</item>
+	</append>
+
+	<!-- Les poings ne tuent jamais un rôdeur, même à la tête (TWD) : aucun dégât aux créatures.
+	     Les dégâts aux blocs (récolte) sont une valeur à part, inchangée. Les poings américains restent des armes. -->
+	<set xpath="/items/item[@name='meleeHandPlayer']//passive_effect[@name='EntityDamage' and @operation='base_set']/@value">0</set>
+
+	<!-- Seuls les rôdeurs transmettent l'infection : les essaims d'insectes ne l'infligent plus
+	     (on retire buffInfectionCatch de leur liste d'effets aléatoires, avec son poids). -->
+	<set xpath="/items/item[@name='meleeHandAnimalInsectSwarm']//triggered_effect[contains(@buff,'buffInfectionCatch')]/@buff">buffFatiguedTrigger,buffInjuryStunned01CHTrigger,buffAbrasionCatch</set>
+	<set xpath="/items/item[@name='meleeHandAnimalInsectSwarm']//triggered_effect[@weights='.3,.3,.2,.2']/@weights">.35,.35,.3</set>
+</configs>

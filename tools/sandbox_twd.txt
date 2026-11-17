@@ -1,0 +1,67 @@
+# Réglages Sandbox du serveur TWD (Le Terminus).
+# Format : Option=index   (index de la liste donnée par la commande console "twdsandbox list")
+# Génération du code : copier ce fichier dans Mods/TWD_Zones/ du serveur, puis en console :
+#   twdsandbox apply sandbox_twd.txt
+# et coller le SandboxCode affiché dans serverconfig.twd.xml (propriété SandboxCode).
+# Les options absentes gardent leur valeur par défaut.
+
+# --- Rôdeurs
+HeadshotMode=1              # Headshot Only
+ZombieMove=0                # marche (jour)
+ZombieMoveNight=0           # marche (nuit)
+ZombieFeralMove=0           # marche
+ZombieBMMove=0              # marche
+ZombieRageChance=0          # pas de rage
+AllowZombieDigging=0        # ne creusent pas
+BlockDamageAI=3             # 0.5 : poussent les clôtures, ne démolissent pas le béton
+BlockDamageAIBM=3           # 0.5
+
+# --- Dégâts : 100 % (le preset Aventurier donnait +50 % aux joueurs, -25 % reçus)
+RangedDamage=7              # 1
+MeleeDamage=7               # 1
+IncomingDamage=7            # 1
+
+# --- Pas d'événements "jeu vidéo"
+BloodMoonFrequency=0        # désactivée
+AirDropFrequency=0          # désactivés
+AirDropMarker=0
+BiomeProgression=0          # pas de dangers de biome (radiation, températures)
+TradersEnabled=0
+VendingEnabled=0
+QuestsEnabled=0
+IntroQuestEnabled=0
+TraderToTraderQuestsEnabled=0
+BuriedQuestsEnabled=0
+POIQuestsEnabled=0
+TreasureMapChance=0
+IntroChallengesEnabled=0    # les points de départ sont donnés dès le début
+
+# --- Mort
+DeathPenalty=3              # mort définitive
+DropOnDeath=1               # tout est lâché sur le cadavre
+
+# --- Loot
+LootRespawnDays=0           # ne réapparaît jamais
+AmmoLootCount=3             # 0.5 : munitions rares
+RangedLootCount=3           # 0.5 : armes à feu rares
+DukesLootCount=0            # pas de monnaie
+
+# --- Compétences (métiers)
+SkillGainRate=1             # un point tous les 2 niveaux
+SkillPointsPerLevel=1       # 1 point
+
+# --- Véhicules
+VehicleFuelUsage=10         # x2
+VehicleSelfDamage=10        # x2
+
+# --- Immersion
+ShowHealthBars=0
+ShowEnemyDamage=0
+ShowXP=3                    # aucun affichage de l'XP
+AllowMap=0
+AllowCompass=0
+AllowScreenMarkers=0
+ShowLocationInfo=0
+
+# --- Temps : 60 min par jour (la durée de l'infection en dépend)
+DayNightLength=5

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<Name value="TWD_Metiers" />
+	<DisplayName value="TWD Métiers" />
+	<Description value="Système de métiers : 6 métiers exclusifs, compétences et magazines réservés. Généré par tools/Generate-Metiers.ps1." />
+	<Author value="TWD Server" />
+	<Version value="0.1.0" />
+	<Website value="" />
+</xml>

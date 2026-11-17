@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<Name value="TWD_Core" />
+	<DisplayName value="TWD Core" />
+	<Description value="Survie fidèle à The Walking Dead : rôdeurs humains uniquement, morsure mortelle, amputation, sans marchands." />
+	<Author value="TWD Server" />
+	<Version value="0.1.0" />
+	<Website value="" />
+</xml>
