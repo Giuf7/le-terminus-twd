@@ -21,7 +21,7 @@ foreach ($d in $decos) {
 }
 
 if ($Zones) {
-    [xml]$zx = Get-Content "C:\Users\piino\Desktop\7DTD TWD\Mods\TWD_Zones\zones.xml" -Raw
+    [xml]$zx = Get-Content (Join-Path $PSScriptRoot "..\..\Mods\TWD_Zones\zones.xml") -Raw
     $pen = New-Object Drawing.Pen ([Drawing.Color]::FromArgb(230, 220, 50, 40)), 4
     $fill = New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(45, 220, 50, 40))
     foreach ($z in $zx.SelectNodes("//zone")) {
